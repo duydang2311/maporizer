@@ -13,19 +13,19 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-namespace Maporizer;
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
-/// <summary>
-/// An empty window that can be used on its own or navigated to within a Frame.
-/// </summary>
-public sealed partial class MainWindow : Window
+namespace Maporizer.CanvasView;
+
+public sealed partial class DrawingCanvas : UserControl
 {
-    public MainWindow()
+    public int CanvasHeight { get; set; }
+    public string CoordinateText { get; set; }
+    public DrawingCanvas()
     {
+        CanvasHeight = 0;
+        CoordinateText = "0, 0";
         InitializeComponent();
-
-        Title = "Maporizer";
-        ExtendsContentIntoTitleBar = true;
-        SetTitleBar(titleBar);
     }
 }
