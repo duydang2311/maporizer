@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Maporizer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Maporizer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
