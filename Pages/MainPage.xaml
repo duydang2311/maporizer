@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:Maporizer.Views"
+             x:Class="Maporizer.Pages.MainPage"
+             Title="maporizer">
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="Exit" />
+        </MenuBarItem>
+        <MenuBarItem Text="Locations">
+            <MenuFlyoutSubItem Text="Change Location">
+                <MenuFlyoutItem Text="Redmond, USA" />
+                <MenuFlyoutItem Text="London, UK" />
+                <MenuFlyoutItem Text="Berlin, DE" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutItem Text="Add Location" />
+        </MenuBarItem>
+        <MenuBarItem Text="View">
+            <MenuFlyoutItem Text="Refresh" />
+            <MenuFlyoutItem Text="Change Theme" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+    <Grid Padding="10, 5, 10, 10" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <views:DrawingView Grid.Row="1"/>
+    </Grid>
+</ContentPage>
