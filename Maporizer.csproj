@@ -49,7 +49,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-rc2" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-rc2">
+	    <NoWarn>NU1605</NoWarn>
+	  </PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
