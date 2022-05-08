@@ -59,6 +59,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="DrawingToolBarViews\DrawingToolBarView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DrawingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

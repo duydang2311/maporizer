@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Maporizer.DrawingViews.Models"
              xmlns:vm="clr-namespace:Maporizer.DrawingViews.ViewModels"
+             xmlns:toolbarview="clr-namespace:Maporizer.DrawingToolBarViews"
              x:Class="Maporizer.DrawingViews.DrawingView">
 
     <ContentView.Resources>
         <m:GraphicsDrawable x:Key="drawable" />
-        <Style TargetType="Label">
+        <Style x:Key="DrawingView_BoldLabel" TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource White}" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontFamily" Value="InterBold"/>
             <Setter Property="FontSize" Value="16" />
             <Setter Property="CharacterSpacing" Value="-1" />
         </Style>
@@ -20,54 +21,65 @@
         <vm:DrawingViewModel />
     </ContentView.BindingContext>
 
-    <Border
-        Stroke="{StaticResource Secondary}"
-        StrokeThickness="1">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="8" />
-        </Border.StrokeShape>
-        <Grid>
-            <ScrollView
-                HorizontalScrollBarVisibility="Default"
-                VerticalScrollBarVisibility="Default">
-                <GraphicsView
-                    x:Name="GraphicsView"
-                    Drawable="{StaticResource drawable}"
-                    HeightRequest="4000"
-                    BackgroundColor="Transparent"
-                    MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
-                    StartInteraction="GraphicsView_StartInteraction">
-                </GraphicsView>
-            </ScrollView>
+    <Grid
+        ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <toolbarview:DrawingToolBarView Grid.Column="0" />
+        <Border
+            Grid.Column="1"
+            Stroke="{StaticResource Secondary}"
+            StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Grid>
+                <ScrollView
+                    HorizontalScrollBarVisibility="Default"
+                    VerticalScrollBarVisibility="Default">
+                    <GraphicsView
+                        x:Name="GraphicsView"
+                        Drawable="{StaticResource drawable}"
+                        HeightRequest="4000"
+                        BackgroundColor="Transparent"
+                        MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
+                        StartInteraction="GraphicsView_StartInteraction">
+                    </GraphicsView>
+                </ScrollView>
 
-            <Label
-                x:Name="CoordinateLabel"
-                Text="X: 0  Y: 0"
-                HorizontalTextAlignment="End"
-                VerticalTextAlignment="End"
-                Margin="0, 0, 125, 8"/>
-            <VerticalStackLayout
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                Margin="0, 0, 20, 0"
-                Spacing="-3">
                 <Label
-                    BindingContext="{x:Reference _slider}"
-                    Text="{Binding Value, StringFormat='{0:0}%'}"
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="End" />
-                <Slider
-                    x:Name="_slider"
-                    WidthRequest="100"
-                    Minimum="0"
-                    Maximum="200"
-                    Value="{Binding ZoomRatio, Mode=TwoWay}"
-                    MinimumTrackColor="{StaticResource Primary}"
-                    MaximumTrackColor="{StaticResource Secondary}"
-                    ThumbColor="{StaticResource Secondary}"
+                    x:Name="CoordinateLabel"
+                    Style="{StaticResource DrawingView_BoldLabel}"
+                    Text="X: 0  Y: 0"
+                    HorizontalTextAlignment="End"
+                    VerticalTextAlignment="End"
+                    Margin="0, 0, 125, 8"/>
+                <VerticalStackLayout
+                    HorizontalOptions="End"
                     VerticalOptions="End"
-                    HorizontalOptions="End"></Slider>
-            </VerticalStackLayout>
-        </Grid>
-    </Border>
+                    Margin="0, 0, 20, 0"
+                    Spacing="-3">
+                    <Label
+                        BindingContext="{x:Reference _slider}"
+                        Text="{Binding Value, StringFormat='{0:0}%'}"
+                        Style="{StaticResource DrawingView_BoldLabel}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End" />
+                    <Slider
+                        x:Name="_slider"
+                        WidthRequest="100"
+                        Minimum="0"
+                        Maximum="200"
+                        Value="{Binding ZoomRatio, Mode=TwoWay}"
+                        MinimumTrackColor="{StaticResource Primary}"
+                        MaximumTrackColor="{StaticResource Secondary}"
+                        ThumbColor="{StaticResource Secondary}"
+                        VerticalOptions="End"
+                        HorizontalOptions="End"></Slider>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentView>

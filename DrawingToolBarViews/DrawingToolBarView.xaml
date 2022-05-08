@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolbarvm="clr-namespace:Maporizer.DrawingToolBarViews.ViewModels"
+             x:Class="Maporizer.DrawingToolBarViews.DrawingToolBarView">
+    <ContentView.BindingContext>
+        <toolbarvm:DrawingToolBarViewModel />
+    </ContentView.BindingContext>
+    <ListView
+        HorizontalScrollBarVisibility="Never"
+        VerticalScrollBarVisibility="Never"
+        ItemsSource="{Binding Items}"
+        SelectedItem="{Binding SelectedItem}"
+        Header="{Binding .}"
+        SeparatorColor="{StaticResource Primary}"
+        RowHeight="50"
+        WidthRequest="80">
+        <ListView.HeaderTemplate>
+            <DataTemplate>
+                <Label
+                    Text="Toolbar"
+                    HorizontalTextAlignment="Center"
+                    FontFamily="InterLight"
+                    Margin="50, 0, 0, 50"></Label>
+            </DataTemplate>
+        </ListView.HeaderTemplate>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ImageButton
+                        Source="{Binding Source}"
+                        Aspect="AspectFit"
+                        IsOpaque="True"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="5"
+                        HeightRequest="50"
+                        WidthRequest="80" />
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentView>
