@@ -1,4 +1,4 @@
-﻿using Maporizer.Pages;
+﻿using Maporizer.MainPages;
 
 namespace Maporizer;
 

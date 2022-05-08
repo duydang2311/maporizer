@@ -3,7 +3,7 @@
     x:Class="Maporizer.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Maporizer.Pages"
+    xmlns:mainpg="clr-namespace:Maporizer.MainPages"
     Shell.FlyoutBehavior="Disabled"
     Title="Maporizer"
     MinimumWidthRequest="640"
@@ -11,6 +11,6 @@
 
     <ShellContent
         Title="Maporizer"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate mainpg:MainPage}"
         Route="MainPage" />
 </Shell>
