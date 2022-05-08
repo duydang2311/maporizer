@@ -35,7 +35,8 @@
                     Drawable="{StaticResource drawable}"
                     HeightRequest="4000"
                     BackgroundColor="Transparent"
-                    MoveHoverInteraction="GraphicsView_MoveHoverInteraction">
+                    MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
+                    StartInteraction="GraphicsView_StartInteraction">
                 </GraphicsView>
             </ScrollView>
 
