@@ -24,7 +24,7 @@ public sealed partial class DrawingCanvas : UserControl
     public string CoordinateText { get; set; }
     public DrawingCanvas()
     {
-        CanvasHeight = 0;
+        CanvasHeight = 4000;
         CoordinateText = "0, 0";
         InitializeComponent();
     }
