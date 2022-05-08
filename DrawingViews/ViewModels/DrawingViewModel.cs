@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Maporizer.ViewModels;
+namespace Maporizer.DrawingViews.ViewModels;
 
 internal class DrawingViewModel : INotifyPropertyChanged
 {

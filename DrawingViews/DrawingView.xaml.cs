@@ -1,4 +1,4 @@
-namespace Maporizer.Views;
+namespace Maporizer.DrawingViews;
 
 public partial class DrawingView : ContentView
 {
@@ -11,6 +11,5 @@ public partial class DrawingView : ContentView
     {
 		var touch = e.Touches[0];
 		CoordinateLabel.Text = $"X: {touch.X}  Y: {touch.Y}";
-
 	}
 }

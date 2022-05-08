@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Maporizer.ViewModels"
-             x:Class="Maporizer.Views.DrawingView">
+             xmlns:m="clr-namespace:Maporizer.DrawingViews.Models"
+             xmlns:vm="clr-namespace:Maporizer.DrawingViews.ViewModels"
+             x:Class="Maporizer.DrawingViews.DrawingView">
 
     <ContentView.Resources>
-        <viewmodels:GraphicsDrawable x:Key="drawable" />
-        <viewmodels:DrawingViewModel x:Key="drawingvm" />
+        <m:GraphicsDrawable x:Key="drawable" />
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource White}" />
             <Setter Property="FontAttributes" Value="Bold" />
@@ -17,7 +17,7 @@
     </ContentView.Resources>
 
     <ContentView.BindingContext>
-        <viewmodels:DrawingViewModel />
+        <vm:DrawingViewModel />
     </ContentView.BindingContext>
 
     <Border
@@ -31,6 +31,7 @@
                 HorizontalScrollBarVisibility="Default"
                 VerticalScrollBarVisibility="Default">
                 <GraphicsView
+                    x:Name="GraphicsView"
                     Drawable="{StaticResource drawable}"
                     HeightRequest="4000"
                     BackgroundColor="Transparent"
