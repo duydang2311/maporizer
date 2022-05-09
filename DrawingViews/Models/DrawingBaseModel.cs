@@ -14,4 +14,6 @@ public abstract class DrawingBaseModel : IDrawable
         FillColor = Colors.Transparent;
     }
     public abstract void Draw(ICanvas canvas, RectF dirtyRect);
+    public abstract bool IsCollidedWith(Point point);
+    public abstract bool IsCollidedWith(PointF point);
 }
