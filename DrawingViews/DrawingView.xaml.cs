@@ -13,7 +13,7 @@ public partial class DrawingView : ContentView
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
 		var touch = e.Touches[0];
-		CoordinateLabel.Text = $"X: {touch.X}  Y: {touch.Y}";
+		CoordinateLabel.Text = $"X: {(int)Math.Round(touch.X)}  Y: {(int)Math.Round(touch.Y)}";
 	}
 
     private void GraphicsView_StartInteraction(object sender, TouchEventArgs e)
