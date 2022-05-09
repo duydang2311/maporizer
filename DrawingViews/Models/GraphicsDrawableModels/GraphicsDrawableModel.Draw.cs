@@ -11,9 +11,9 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     }
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
+        canvas.Antialias = true;
         lock (Drawings)
         {
-            canvas.Antialias = true;
             foreach (var drawing in Drawings)
             {
                 drawing.Draw(canvas, dirtyRect);

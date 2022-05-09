@@ -8,13 +8,9 @@ public partial class DrawingView : ContentView
 
     private void Slider_ValueChanged(object? sender, ValueChangedEventArgs e)
     {
-        if (sender is not Slider slider)
-        {
-            return;
-        }
         int remainder = (int)Math.Round(e.NewValue / scaleUnit);
         var snappedValue = remainder * 25;
-        slider.Value = snappedValue;
+        (sender as Slider)!.Value = snappedValue;
         ((GraphicsDrawableModel)GraphicsView.Drawable).ScaleFactor = snappedValue / 100f;
         GraphicsView.Invalidate();
     }

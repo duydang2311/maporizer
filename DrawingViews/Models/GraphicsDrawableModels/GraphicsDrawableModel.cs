@@ -29,7 +29,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     public GraphicsDrawableModel(GraphicsView graphicsView)
     {
         Drawings = new();
-        ScaleFactor = 1f;
+        scaleFactor = 1f;
         GraphicsView = graphicsView;
         GraphicsView.StartInteraction += GraphicsView_StartInteraction;
 
