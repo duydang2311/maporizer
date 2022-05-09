@@ -24,7 +24,8 @@
         <Border
             Grid.Column="1"
             Stroke="{StaticResource Secondary}"
-            StrokeThickness="1">
+            StrokeThickness="1"
+            Padding="0, 0, 6, 2">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="8" />
             </Border.StrokeShape>
