@@ -8,6 +8,15 @@ public partial class DrawingView : ContentView
 	{
 		InitializeComponent();
         GraphicsView.Drawable = new GraphicsDrawableModel(GraphicsView);
+        // Workaround for slider related issue, see https://github.com/dotnet/maui/issues/6957
+        Task.Run(() =>
+        {
+            Thread.Sleep(0);
+            App.Current!.Dispatcher.Dispatch(() =>
+            {
+                Slider.Value = 100;
+            });
+        });
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
