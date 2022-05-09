@@ -7,7 +7,6 @@
              x:Class="Maporizer.DrawingViews.DrawingView">
 
     <ContentView.Resources>
-        <m:GraphicsDrawable x:Key="drawable" />
         <Style x:Key="DrawingView_BoldLabel" TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource White}" />
             <Setter Property="FontAttributes" Value="Bold" />
@@ -41,11 +40,9 @@
                     VerticalScrollBarVisibility="Default">
                     <GraphicsView
                         x:Name="GraphicsView"
-                        Drawable="{StaticResource drawable}"
                         HeightRequest="4000"
                         BackgroundColor="Transparent"
-                        MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
-                        StartInteraction="GraphicsView_StartInteraction">
+                        MoveHoverInteraction="GraphicsView_MoveHoverInteraction">
                     </GraphicsView>
                 </ScrollView>
 
