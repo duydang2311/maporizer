@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:m="clr-namespace:Maporizer.DrawingViews.Models"
-             xmlns:vm="clr-namespace:Maporizer.DrawingViews.ViewModels"
              xmlns:toolbarview="clr-namespace:Maporizer.DrawingToolBarViews"
              x:Class="Maporizer.DrawingViews.DrawingView">
 
@@ -15,10 +13,6 @@
             <Setter Property="CharacterSpacing" Value="-1" />
         </Style>
     </ContentView.Resources>
-
-    <ContentView.BindingContext>
-        <vm:DrawingViewModel />
-    </ContentView.BindingContext>
 
     <Grid
         ColumnSpacing="10">
@@ -59,17 +53,17 @@
                     Margin="0, 0, 20, 0"
                     Spacing="-3">
                     <Label
-                        BindingContext="{x:Reference _slider}"
+                        BindingContext="{x:Reference Slider}"
                         Text="{Binding Value, StringFormat='{0:0}%'}"
                         Style="{StaticResource DrawingView_BoldLabel}"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="End" />
                     <Slider
-                        x:Name="_slider"
+                        x:Name="Slider"
                         WidthRequest="100"
                         Minimum="0"
                         Maximum="200"
-                        Value="{Binding ZoomRatio, Mode=TwoWay}"
+                        ValueChanged="Slider_ValueChanged"
                         MinimumTrackColor="{StaticResource Primary}"
                         MaximumTrackColor="{StaticResource Secondary}"
                         ThumbColor="{StaticResource Secondary}"

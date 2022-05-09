@@ -1,8 +1,6 @@
-﻿namespace Maporizer.DrawingViews.ViewModels;
+﻿namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
-using Maporizer.DrawingViews.Models;
-
-public partial class GraphicsDrawableViewModel : Microsoft.Maui.Graphics.IDrawable
+public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
 {
     private Thread moveHover_thread;
     private AutoResetEvent moveHover_resetEvent;

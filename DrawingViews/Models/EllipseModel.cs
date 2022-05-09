@@ -19,7 +19,7 @@ public class EllipseModel : DrawingBaseModel
     public override bool IsCollidedWith(Point point)
     {
         var radius = (Size.Width + Size.Width / 25f) / 2;
-        var center = new Point(Location.X + radius, Location.Y + radius);
+        var center = new PointF(Location.X + radius, Location.Y + radius);
         var dx = point.X - center.X;
         var dy = point.Y - center.Y;
         var distanceSquared = dx * dx + dy * dy;
