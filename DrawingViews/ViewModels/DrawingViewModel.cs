@@ -7,7 +7,7 @@ internal class DrawingViewModel : INotifyPropertyChanged
     private const float zoomUnit = 25f;
     private int zoomRatio;
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public int ZoomRatio
     {
