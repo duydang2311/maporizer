@@ -54,15 +54,16 @@
                     Spacing="-3">
                     <Label
                         BindingContext="{x:Reference Slider}"
-                        Text="{Binding Value, StringFormat='{0:0}%'}"
+                        Text="{Binding Value, Mode=OneWay, StringFormat='{0:0}%'}"
                         Style="{StaticResource DrawingView_BoldLabel}"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="End" />
                     <Slider
                         x:Name="Slider"
                         WidthRequest="100"
-                        Minimum="0"
-                        Maximum="200"
+                        Maximum="225"
+                        Minimum="25"
+                        Value="100"
                         ValueChanged="Slider_ValueChanged"
                         MinimumTrackColor="{StaticResource Primary}"
                         MaximumTrackColor="{StaticResource Secondary}"
