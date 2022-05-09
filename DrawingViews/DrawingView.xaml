@@ -31,14 +31,18 @@
             </Border.StrokeShape>
             <Grid>
                 <ScrollView
+                    Orientation="Both"
                     HorizontalScrollBarVisibility="Default"
                     VerticalScrollBarVisibility="Default">
-                    <GraphicsView
-                        x:Name="GraphicsView"
-                        HeightRequest="4000"
-                        BackgroundColor="Transparent"
-                        MoveHoverInteraction="GraphicsView_MoveHoverInteraction">
-                    </GraphicsView>
+                    <Border
+                        StrokeThickness="0">
+                        <GraphicsView
+                            x:Name="GraphicsView"
+                            MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
+                            WidthRequest="4000"
+                            HeightRequest="4000" />
+                    </Border>
+
                 </ScrollView>
 
                 <Label
@@ -62,7 +66,7 @@
                     <Slider
                         x:Name="Slider"
                         WidthRequest="100"
-                        Maximum="225"
+                        Maximum="175"
                         Minimum="25"
                         Value="100"
                         ValueChanged="Slider_ValueChanged"
