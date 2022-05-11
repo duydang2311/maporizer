@@ -2,7 +2,13 @@
 
 public class EllipseModel : DrawingBaseModel
 {
-    public EllipseModel() : base() { }
+    public PointF Location { get; set; }
+    public SizeF Size { get; set; }
+    public EllipseModel() : base()
+    {
+        Location = new PointF();
+        Size = new SizeF();
+    }
     public override void Draw(ICanvas canvas, RectF dirtyRect)
     {
         Rect rect = new(Location, Size);
@@ -13,10 +19,6 @@ public class EllipseModel : DrawingBaseModel
         canvas.DrawEllipse(rect);
     }
     public override bool IsCollidedWith(PointF point)
-    {
-        return IsCollidedWith((Point)point);
-    }
-    public override bool IsCollidedWith(Point point)
     {
         var radius = (Size.Width + Size.Width / 25f) / 2;
         var center = new PointF(Location.X + radius, Location.Y + radius);
