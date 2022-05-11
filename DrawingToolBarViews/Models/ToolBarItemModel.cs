@@ -2,6 +2,6 @@
 
 public class ToolBarItemModel
 {
-    public ImageSource Source { get; set; }
-    public Command Command { get; set; }
+    public ImageSource Source { get; set; } = null!;
+    public Command Command { get; set; } = null!;
 }

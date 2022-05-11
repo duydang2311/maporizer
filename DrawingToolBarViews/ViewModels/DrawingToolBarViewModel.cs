@@ -6,7 +6,7 @@ namespace Maporizer.DrawingToolBarViews.ViewModels;
 public class DrawingToolBarViewModel : INotifyPropertyChanged
 {
     public ToolBarItemModel[] Items { get; set; }
-    private ToolBarItemModel selectedItem;
+    private ToolBarItemModel selectedItem = null!;
     private readonly ToolBarItemModel createItem;
     private readonly ToolBarItemModel connectItem;
 
@@ -25,7 +25,7 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
             }
         }
     }
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public DrawingToolBarViewModel()
     {
