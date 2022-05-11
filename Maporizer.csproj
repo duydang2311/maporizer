@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -67,5 +67,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+	
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and '$(Configuration)' == 'Release'">
+	    <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
+	    <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+	    <PackageCertificateKeyFile>myCert.pfx</PackageCertificateKeyFile> <!-- Optional if you want to use the exported PFX file -->
+	</PropertyGroup>
+					
 
 </Project>
