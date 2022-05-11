@@ -12,15 +12,10 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
         {
             lock (Drawings)
             {
-                PointF location;
-                SizeF size;
                 float invert = value / scaleFactor;
                 foreach (var drawing in Drawings)
                 {
-                    location = drawing.Location;
-                    size = drawing.Size;
-                    drawing.Location = new PointF(location.X * invert, location.Y * invert);
-                    drawing.Size = new SizeF(size.Width * invert, size.Height * invert);
+                    drawing.Scale(invert);
                 }
             }
             scaleFactor = value;
@@ -36,6 +31,30 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
         moveHover_thread = null!;
         moveHover_resetEvent = null!;
         InitMoveHoverInternal();
+
+        var polygon = new PolygonModel { StrokeColor = Colors.Red, FillColor = Colors.Green };
+        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 500), () =>
+        {
+            polygon.Add(new PointF(300, 300));
+            GraphicsView.Invalidate();
+        });
+        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 1000), () =>
+        {
+            polygon.Add(new PointF(0, 300));
+            GraphicsView.Invalidate();
+        });
+        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 1500), () =>
+        {
+            polygon.Add(new PointF(0, 600));
+            GraphicsView.Invalidate();
+        });
+        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 2000), () =>
+        {
+            polygon.Add(new PointF(600, 600));
+            polygon.Close();
+            GraphicsView.Invalidate();
+        });
+        Drawings.AddLast(polygon);
     }
 }
 

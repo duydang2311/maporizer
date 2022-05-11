@@ -27,4 +27,9 @@ public class EllipseModel : DrawingBaseModel
         var distanceSquared = dx * dx + dy * dy;
         return distanceSquared <= radius * radius;
     }
+    public override void Scale(float scale)
+    {
+        Location = new PointF(Location.X * scale, Location.Y * scale);
+        Size = new SizeF(Size.Width * scale, Size.Height * scale);
+    }
 }

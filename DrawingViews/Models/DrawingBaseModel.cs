@@ -11,4 +11,5 @@ public abstract class DrawingBaseModel : IDrawable
     }
     public abstract void Draw(ICanvas canvas, RectF dirtyRect);
     public abstract bool IsCollidedWith(PointF point);
+    public abstract void Scale(float scale);
 }

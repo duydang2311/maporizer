@@ -36,4 +36,8 @@ public class PolygonModel : DrawingBaseModel
         // TODO: implement
         return false;
     }
+    public override void Scale(float scale)
+    {
+        // TODO: implement
+    }
 }

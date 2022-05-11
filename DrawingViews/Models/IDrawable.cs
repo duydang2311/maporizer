@@ -6,4 +6,5 @@ public interface IDrawable
     public Color FillColor { get; set; }
     public void Draw(ICanvas canvas, RectF dirtyRect);
     public bool IsCollidedWith(PointF point);
+    public void Scale(float scale);
 }
