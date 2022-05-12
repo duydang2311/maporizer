@@ -2,7 +2,7 @@
 
 public class PolygonModel : DrawingBaseModel
 {
-    private readonly PathF _path;
+    private PathF _path;
     public float StrokeWidth { get; set; }
     public PolygonModel() : base()
     {
@@ -38,6 +38,7 @@ public class PolygonModel : DrawingBaseModel
     }
     public override void Scale(float scale)
     {
-        // TODO: implement
+        _path = _path.AsScaledPath(scale);
+        StrokeWidth *= scale;
     }
 }
