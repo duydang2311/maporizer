@@ -69,7 +69,7 @@
                         Maximum="175"
                         Minimum="25"
                         Value="100"
-                        ValueChanged="Slider_ValueChanged"
+                        ValueChanged="Slider_Scaling_ValueChanged"
                         MinimumTrackColor="{StaticResource Primary}"
                         MaximumTrackColor="{StaticResource Secondary}"
                         ThumbColor="{StaticResource Secondary}"

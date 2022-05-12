@@ -6,7 +6,7 @@ public partial class DrawingView : ContentView
 {
     private const float scaleUnit = 25f;
 
-    private void Slider_ValueChanged(object? sender, ValueChangedEventArgs e)
+    private void Slider_Scaling_ValueChanged(object? sender, ValueChangedEventArgs e)
     {
         var drawable = (GraphicsDrawableModel)GraphicsView.Drawable;
         int remainder = (int)Math.Round(e.NewValue / scaleUnit);
