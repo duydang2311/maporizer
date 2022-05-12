@@ -17,6 +17,7 @@ public partial class DrawingView : ContentView
                 Slider.Value = 100;
             });
         });
+        new BatchDrawingViewModel(this);
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
