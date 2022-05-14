@@ -48,15 +48,6 @@ public partial class DrawingBatchViewModel
                 {
                     return;
                 }
-                App.Current.Dispatcher.Dispatch(() =>
-                {
-                    if (interacting)
-                    {
-                        PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
-                        PolygonBatch.Scale(((GraphicsDrawableModel)View.Drawable).ScaleFactor);
-                        ((GraphicsDrawableModel)View.Drawable).Draw(PolygonBatch);
-                    }
-                });
             });
         }
     }
@@ -84,8 +75,14 @@ public partial class DrawingBatchViewModel
     }
     private void View_MoveHoverInteraction(object? sender, TouchEventArgs e)
     {
-        if (PolygonBatch is not null)
+        if (interacting)
         {
+            if (PolygonBatch is null)
+            {
+                PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
+                PolygonBatch.Scale(((GraphicsDrawableModel)View.Drawable).ScaleFactor);
+                ((GraphicsDrawableModel)View.Drawable).Draw(PolygonBatch);
+            }
             var point = e.Touches[0];
             if (lastPoint.Distance(point) >= 2)
             {
