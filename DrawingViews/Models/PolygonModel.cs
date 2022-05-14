@@ -19,7 +19,6 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Add(PointF point)
     {
-        // TODO: quad or curve if the path formed up a polygon
         _path.LineTo(point);
     }
     public override void Draw(ICanvas canvas, RectF dirtyRect)
@@ -29,7 +28,10 @@ public class PolygonModel : DrawingBaseModel
         canvas.FillColor = FillColor;
         canvas.FillPath(_path, WindingMode.EvenOdd);
         canvas.DrawPath(_path);
-        
+    }
+    public void Simplify()
+    {
+        // TODO: simplify polygon vectices using QuadTo
     }
     public override bool IsCollidedWith(PointF point)
     {

@@ -1,4 +1,5 @@
 using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+using Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
 namespace Maporizer.DrawingViews;
 
@@ -17,7 +18,7 @@ public partial class DrawingView : ContentView
                 Slider.Value = 100;
             });
         });
-        new BatchDrawingViewModel(this);
+        new DrawingBatchViewModel(GraphicsView);
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
