@@ -6,17 +6,17 @@ public partial class DrawingView : ContentView
 {
     private class BatchDrawingViewModel
     {
-        private readonly DrawingView view;
-        private IDrawable polygonBatch = null!;
+        public DrawingView View { get; }
+        public IDrawable PolygonBatch { get; private set; } = null!;
         public BatchDrawingViewModel(DrawingView view)
         {
-            this.view = view;
-            view.GraphicsView.StartInteraction += GraphicsView_StartInteraction;
-            view.GraphicsView.EndInteraction += GraphicsView_EndInteraction;
+            View = view;
+            View.GraphicsView.StartInteraction += View_StartInteraction;
+            View.GraphicsView.EndInteraction += View_EndInteraction;
         }
-        private void GraphicsView_StartInteraction(object? sender, TouchEventArgs e)
+        private void View_StartInteraction(object? sender, TouchEventArgs e)
         {
-            if (polygonBatch is null)
+            if (PolygonBatch is null)
             {
                 Task.Run(() =>
                 {
@@ -24,7 +24,7 @@ public partial class DrawingView : ContentView
                 });
             }
         }
-        private void GraphicsView_EndInteraction(object? sender, TouchEventArgs e)
+        private void View_EndInteraction(object? sender, TouchEventArgs e)
         {
 
         }
