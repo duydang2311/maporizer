@@ -11,7 +11,10 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Close()
     {
-        _path.Close();
+        if (_path.Points.Count() > 0)
+        {
+            _path.Close();
+        }
     }
     public void Open()
     {
