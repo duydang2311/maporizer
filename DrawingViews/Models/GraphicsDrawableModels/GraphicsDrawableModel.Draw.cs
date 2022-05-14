@@ -20,17 +20,5 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
             }
         }
     }
-    private void GraphicsView_StartInteraction(object? sender, TouchEventArgs e)
-    {
-        var scaledOffset = -defaultSize * scaleFactor / 2;
-        Draw(new EllipseModel
-        {
-            Location = e.Touches[0].Offset(scaledOffset, scaledOffset),
-            Size = new Size(defaultSize * scaleFactor),
-            FillColor = (Color)Application.Current!.Resources["Primary"],
-            StrokeColor = (Color)Application.Current!.Resources["Secondary"]
-        });
-        GraphicsView.Invalidate();
-    }
 }
 

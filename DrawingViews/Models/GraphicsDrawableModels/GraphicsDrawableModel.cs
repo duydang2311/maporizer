@@ -26,35 +26,10 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
         Drawings = new();
         scaleFactor = 1f;
         GraphicsView = graphicsView;
-        GraphicsView.StartInteraction += GraphicsView_StartInteraction;
 
         moveHover_thread = null!;
         moveHover_resetEvent = null!;
         InitMoveHoverInternal();
-
-        var polygon = new PolygonModel { StrokeColor = Colors.Red, FillColor = Colors.Green };
-        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 500), () =>
-        {
-            polygon.Add(new PointF(300, 300));
-            GraphicsView.Invalidate();
-        });
-        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 1000), () =>
-        {
-            polygon.Add(new PointF(0, 300));
-            GraphicsView.Invalidate();
-        });
-        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 1500), () =>
-        {
-            polygon.Add(new PointF(0, 600));
-            GraphicsView.Invalidate();
-        });
-        App.Current!.Dispatcher.DispatchDelayed(new TimeSpan(0, 0, 0, 0, 2000), () =>
-        {
-            polygon.Add(new PointF(600, 600));
-            polygon.Close();
-            GraphicsView.Invalidate();
-        });
-        Drawings.AddLast(polygon);
     }
 }
 
