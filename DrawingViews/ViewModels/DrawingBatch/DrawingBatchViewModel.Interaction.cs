@@ -27,6 +27,7 @@ public partial class DrawingBatchViewModel
                     return;
                 }
                 PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
+                PolygonBatch.Scale(((GraphicsDrawableModel)View.Drawable).ScaleFactor);
                 ((GraphicsDrawableModel)View.Drawable).Draw(PolygonBatch);
             });
         }
