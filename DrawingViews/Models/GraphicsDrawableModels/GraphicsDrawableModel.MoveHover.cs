@@ -21,7 +21,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
             lock (Drawings)
             {
                 IDrawable? collided = null;
-                foreach (var drawing in Drawings)
+                foreach (IDrawable drawing in Drawings)
                 {
                     if (drawing.IsCollidedWith(moveHover_touchPoint))
                     {
@@ -34,21 +34,18 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
                     var dispatcher = App.Current!.Dispatcher;
                     var reset = moveHover_drawing;
                     moveHover_drawing = collided;
-                    lock (dispatcher)
+                    dispatcher.Dispatch(() =>
                     {
-                        dispatcher.Dispatch(() =>
+                        if (reset is not null)
                         {
-                            if (reset is not null)
-                            {
-                                reset.StrokeColor = Colors.White;
-                            }
-                            if (collided is not null)
-                            {
-                                collided.StrokeColor = Colors.Red;
-                            }
-                            GraphicsView.Invalidate();
-                        });
-                    }
+                            reset.StrokeColor = Colors.White;
+                        }
+                        if (collided is not null)
+                        {
+                            collided.StrokeColor = Colors.Red;
+                        }
+                        GraphicsView.Invalidate();
+                    });
                 }
             }
         }
