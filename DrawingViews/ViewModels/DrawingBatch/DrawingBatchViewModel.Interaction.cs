@@ -1,31 +1,32 @@
 ﻿using Maporizer.DrawingViews.Models;
 using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+using Maporizer.Helpers;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
 public partial class DrawingBatchViewModel
 {
-    private bool interacting;
+    private bool drawing;
     private PointF lastPoint;
     public void InitInteractionInternal()
     {
-        interacting = false;
+        drawing = false;
         View.StartInteraction += View_StartInteraction;
         View.MoveHoverInteraction += View_MoveHoverInteraction;
         View.EndInteraction += View_EndInteraction;
     }
     private void View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (!interacting)
+        if (!drawing)
         {
-            interacting = true;
+            drawing = true;
         }
     }
     private void View_EndInteraction(object? sender, TouchEventArgs e)
     {
-        if (interacting)
+        if (drawing)
         {
-            interacting = false;
+            drawing = false;
             if (PolygonBatch is not null)
             {
                 PolygonBatch.Simplify();
@@ -38,7 +39,7 @@ public partial class DrawingBatchViewModel
     }
     private void View_MoveHoverInteraction(object? sender, TouchEventArgs e)
     {
-        if (interacting)
+        if (drawing)
         {
             if (PolygonBatch is null)
             {
@@ -47,7 +48,7 @@ public partial class DrawingBatchViewModel
                 ((GraphicsDrawableModel)View.Drawable).Draw(PolygonBatch);
             }
             var point = e.Touches[0];
-            if (lastPoint.Distance(point) >= 2)
+            if (PointHelper.DistanceSquared(lastPoint, point) > 9)
             {
                 PolygonBatch.Add(point);
                 lastPoint = point;
