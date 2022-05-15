@@ -6,49 +6,19 @@ namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 public partial class DrawingBatchViewModel
 {
     private bool interacting;
-    private bool disposed;
     private PointF lastPoint;
-    private CancellationTokenSource tokenSource;
-    private object mutex = new ();
     public void InitInteractionInternal()
     {
         interacting = false;
-        disposed = true;
         View.StartInteraction += View_StartInteraction;
         View.MoveHoverInteraction += View_MoveHoverInteraction;
         View.EndInteraction += View_EndInteraction;
     }
-    private int i = 0;
     private void View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (disposed)
+        if (!interacting)
         {
             interacting = true;
-            lock (mutex)
-            {
-                if (!disposed && tokenSource is not null)
-                {
-                    tokenSource.Cancel();
-                    tokenSource.Dispose();
-                }
-                tokenSource = new CancellationTokenSource();
-                disposed = false;
-            }
-            var waitHandle = tokenSource.Token.WaitHandle;
-            var task = Task.Run(() =>
-            {
-                bool cancelled = false;
-                lock (mutex)
-                {
-                    cancelled = waitHandle.WaitOne(100);
-                    tokenSource.Dispose();
-                    disposed = true;
-                }
-                if (cancelled || !interacting)
-                {
-                    return;
-                }
-            });
         }
     }
     private void View_EndInteraction(object? sender, TouchEventArgs e)
@@ -63,13 +33,6 @@ public partial class DrawingBatchViewModel
                 PolygonBatch = null;
                 lastPoint = Point.Zero;
                 View.Invalidate();
-            }
-            lock (mutex)
-            {
-                if (!disposed)
-                {
-                    tokenSource.Cancel();
-                }
             }
         }
     }
