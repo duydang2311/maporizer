@@ -74,7 +74,7 @@ public class PolygonModel : DrawingBaseModel
         float totalDist;
         float lastX = _path.LastPoint.X;
         float lastY = _path.LastPoint.Y;
-        float epsilon = StrokeWidth * StrokeWidth;
+        float epsilon = StrokeWidth * StrokeWidth * 2;
         foreach (var p in _path.Points)
         {
             dx = x0 - lastX;
