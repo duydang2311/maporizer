@@ -13,7 +13,7 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Close()
     {
-        if (_path.Points.Count() > 0)
+        if (_path.Points.Count() > 2)
         {
             _path.Close();
         }
