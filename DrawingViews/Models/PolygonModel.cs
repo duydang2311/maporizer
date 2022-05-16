@@ -1,4 +1,6 @@
-﻿namespace Maporizer.DrawingViews.Models;
+﻿using Maporizer.Helpers;
+
+namespace Maporizer.DrawingViews.Models;
 
 public class PolygonModel : DrawingBaseModel
 {
@@ -40,7 +42,27 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Simplify()
     {
-        // TODO: simplify polygon vectices using QuadTo
+        // Visvalingam-Whyatt algorithm
+        var points = _path.Points.ToArray();
+        var length = points.Length - 1;
+        if (length < 2)
+        {
+            return;
+        }
+
+        float height;
+        float baseLength;
+        float epsilon = 36f;
+        for(int i = 1, segment = 1; i != length; ++i, ++segment)
+        {
+            height = PointHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
+            baseLength = PointHelper.DistanceSquared(points[i - 1], points[i + 1]);
+
+            if (height * baseLength < epsilon)
+            {
+                _path.RemoveSegment(segment--);
+            }
+        }
     }
     public override bool IsCollidedWith(PointF point)
     {
@@ -65,6 +87,8 @@ public class PolygonModel : DrawingBaseModel
             dx = p.X - lastX;
             dy = p.Y - lastY;
             totalDist = dx * dx + dy * dy;
+
+
             if (dist1 + dist2 + 2 * Math.Sqrt(dist1) * Math.Sqrt(dist2) - totalDist <= epsilon)
             {
                 return true;
