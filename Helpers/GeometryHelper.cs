@@ -38,4 +38,51 @@ public static class GeometryHelper
             return (float)DistanceSquared(point, proj);
         }
     }
+    public static PointF GetIntersectionPointBetweenLines(PointF line1a, PointF line1b, PointF line2a, PointF line2b)
+    {
+        // TODO: validate precision
+        float v1x = line1b.Y - line1a.Y;
+        float v1y = line1a.X - line1b.X;
+        float v2x = line2b.Y - line2a.Y;
+        float v2y = line2a.X - line2b.X;
+        float det = v1x * v2y - v1y * v2x;
+        if (det == 0)
+        {
+            return PointF.Zero;
+        }
+        // ax + by + c = 0
+        // => y = (-a / b) * x - c / b
+        float v1c = (-v1x * line1a.X - v1y * line1a.Y) / (-v1y);
+        float v2c = (-v2x * line2a.X - v2y * line2a.Y) / (-v2y);
+        v1x /= -v1y;
+        v2x /= -v2y;
+        float x = (v2c - v1c) / (v1x - v2x);
+        float y = v1x * x + v1c;
+        return new PointF(x, y);
+    }
+    public static bool IsPointInsidePath(PathF path, PointF point)
+    {
+        // Ray-casting
+        float x = point.X;
+        float y = point.Y;
+        float xi;
+        float yi;
+        float xj;
+        float yj;
+        bool intersect;
+        bool inside = false;
+        var points = path.Points.ToArray();
+        for (int i = 0, j = points.Length - 1, length = points.Length; i != length; j = i++)
+        {
+            xi = points[i].X;
+            yi = points[i].Y;
+            xj = points[j].X;
+            yj = points[j].Y;
+
+            intersect = ((yi > y) != (yj > y))
+                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+        return inside;
+    }
 }
