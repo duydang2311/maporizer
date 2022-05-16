@@ -2,16 +2,16 @@
 
 public static class PointHelper
 {
-    public static double DistanceSquared(Point a, Point b)
+    public static float DistanceSquared(Point a, Point b)
     {
-        double dx = a.X - b.X;
-        double dy = a.Y - b.Y;
+        float dx = (float)(a.X - b.X);
+        float dy = (float)(a.Y - b.Y);
         return dx * dx + dy * dy;
     }
-    public static double DistanceSquared(PointF a, PointF b)
+    public static float DistanceSquared(PointF a, PointF b)
     {
-        double dx = a.X - b.X;
-        double dy = a.Y - b.Y;
+        float dx = a.X - b.X;
+        float dy = a.Y - b.Y;
         return dx * dx + dy * dy;
     }
 }
