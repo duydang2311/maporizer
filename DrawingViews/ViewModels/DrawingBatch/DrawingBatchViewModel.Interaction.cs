@@ -29,7 +29,7 @@ public partial class DrawingBatchViewModel
             drawing = false;
             if (PolygonBatch is not null)
             {
-                PolygonBatch.Simplify();
+                PolygonBatch.Simplify(45f * ((GraphicsDrawableModel)View.Drawable).ScaleFactor);
                 PolygonBatch.Close();
                 PolygonBatch = null;
                 lastPoint = Point.Zero;
@@ -41,14 +41,15 @@ public partial class DrawingBatchViewModel
     {
         if (drawing)
         {
+            var drawable = (GraphicsDrawableModel)View.Drawable;
             if (PolygonBatch is null)
             {
                 PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
-                PolygonBatch.Scale(((GraphicsDrawableModel)View.Drawable).ScaleFactor);
-                ((GraphicsDrawableModel)View.Drawable).Draw(PolygonBatch);
+                PolygonBatch.Scale(drawable.ScaleFactor);
+                drawable.Draw(PolygonBatch);
             }
             var point = e.Touches[0];
-            if (PointHelper.DistanceSquared(lastPoint, point) > 9)
+            if (PointHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
             {
                 PolygonBatch.Add(point);
                 lastPoint = point;

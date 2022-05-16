@@ -40,7 +40,7 @@ public class PolygonModel : DrawingBaseModel
             canvas.DrawPath(_path);
         }
     }
-    public void Simplify()
+    public void Simplify(float epsilon)
     {
         // Visvalingam-Whyatt algorithm
         var points = _path.Points.ToArray();
@@ -52,7 +52,6 @@ public class PolygonModel : DrawingBaseModel
 
         float height;
         float baseLength;
-        float epsilon = 36f;
         for(int i = 1, segment = 1; i != length; ++i, ++segment)
         {
             height = PointHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
