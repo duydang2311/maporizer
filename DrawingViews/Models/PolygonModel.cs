@@ -27,10 +27,16 @@ public class PolygonModel : DrawingBaseModel
     public override void Draw(ICanvas canvas, RectF dirtyRect)
     {
         canvas.StrokeSize = StrokeWidth;
-        canvas.StrokeColor = StrokeColor;
-        canvas.FillColor = FillColor;
-        canvas.FillPath(_path, WindingMode.EvenOdd);
-        canvas.DrawPath(_path);
+        if (FillColor != Colors.Transparent)
+        {
+            canvas.FillColor = FillColor;
+            canvas.FillPath(_path);
+        }
+        if (StrokeColor != Colors.Transparent)
+        {
+            canvas.StrokeColor = StrokeColor;
+            canvas.DrawPath(_path);
+        }
     }
     public void Simplify()
     {
