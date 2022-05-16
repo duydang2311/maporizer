@@ -6,6 +6,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     private AutoResetEvent moveHover_resetEvent;
     private Point moveHover_touchPoint;
     private IDrawable? moveHover_drawing;
+    private readonly object mutex = new();
     private void InitMoveHoverInternal()
     {
         moveHover_resetEvent = new AutoResetEvent(false);
@@ -18,6 +19,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
         while (true)
         {
             moveHover_resetEvent.WaitOne();
+            lock (mutex)
             lock (Drawings)
             {
                 IDrawable? collided = null;
@@ -52,7 +54,10 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     }
     private void GraphicsView_MoveHoverInteraction(object? sender, TouchEventArgs e)
     {
-        moveHover_touchPoint = e.Touches[0];
+        lock(mutex)
+        {
+            moveHover_touchPoint = e.Touches[0];
+        }
         moveHover_resetEvent.Set();
     }
 }
