@@ -65,7 +65,7 @@ public class PolygonModel : DrawingBaseModel
             dx = p.X - lastX;
             dy = p.Y - lastY;
             totalDist = dx * dx + dy * dy;
-            if (dist1 + dist2 + 2 * Math.Sqrt(dist1) * Math.Sqrt(dist2) - totalDist < epsilon)
+            if (dist1 + dist2 + 2 * Math.Sqrt(dist1) * Math.Sqrt(dist2) - totalDist <= epsilon)
             {
                 return true;
             }
