@@ -49,7 +49,7 @@ public partial class DrawingBatchViewModel
                 drawable.Draw(PolygonBatch);
             }
             var point = e.Touches[0];
-            if (PointHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
+            if (GeometryHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
             {
                 PolygonBatch.Add(point);
                 lastPoint = point;

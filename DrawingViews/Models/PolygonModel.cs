@@ -54,8 +54,8 @@ public class PolygonModel : DrawingBaseModel
         float baseLength;
         for(int i = 1, segment = 1; i != length; ++i, ++segment)
         {
-            height = PointHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
-            baseLength = PointHelper.DistanceSquared(points[i - 1], points[i + 1]);
+            height = GeometryHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
+            baseLength = GeometryHelper.DistanceSquared(points[i - 1], points[i + 1]);
 
             if (height * baseLength < epsilon)
             {

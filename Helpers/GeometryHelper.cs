@@ -1,6 +1,6 @@
 ﻿namespace Maporizer.Helpers;
 
-public static class PointHelper
+public static class GeometryHelper
 {
     public static float DistanceSquared(Point a, Point b)
     {
