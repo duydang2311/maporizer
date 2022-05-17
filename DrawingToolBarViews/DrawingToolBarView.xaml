@@ -20,8 +20,7 @@
                 <Label
                     Text="Toolbar"
                     HorizontalTextAlignment="Center"
-                    FontFamily="InterLight"
-                    Margin="50, 0, 0, 50"></Label>
+                    FontFamily="InterLight"></Label>
             </DataTemplate>
         </ListView.HeaderTemplate>
         <ListView.ItemTemplate>
