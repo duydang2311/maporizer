@@ -43,23 +43,31 @@ public class PolygonModel : DrawingBaseModel
     public void Simplify(float epsilon)
     {
         // Visvalingam-Whyatt algorithm
-        var points = _path.Points.ToArray();
-        var length = points.Length - 1;
-        if (length < 2)
+        bool keepSimplifing = true;
+        int count = 0;
+        while(keepSimplifing)
         {
-            return;
-        }
-
-        float height;
-        float baseLength;
-        for(int i = 1, segment = 1; i != length; ++i, ++segment)
-        {
-            height = GeometryHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
-            baseLength = GeometryHelper.DistanceSquared(points[i - 1], points[i + 1]);
-
-            if (height * baseLength < epsilon)
+            System.Diagnostics.Debug.WriteLine(++count);
+            keepSimplifing = false;
+            var points = _path.Points.ToArray();
+            var length = points.Length - 1;
+            if (length < 2)
             {
-                _path.RemoveSegment(segment--);
+                return;
+            }
+
+            float height;
+            float baseLength;
+            for(int i = 1, segment = 1; i != length; ++i, ++segment)
+            {
+                height = GeometryHelper.DistanceToLineSquared(points[i], points[i - 1], points[i + 1]);
+                baseLength = GeometryHelper.DistanceSquared(points[i - 1], points[i + 1]);
+
+                if (height * baseLength < epsilon)
+                {
+                    _path.RemoveSegment(segment--);
+                    keepSimplifing = true;
+                }
             }
         }
     }
