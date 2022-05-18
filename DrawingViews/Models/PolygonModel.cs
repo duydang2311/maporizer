@@ -49,7 +49,7 @@ public class PolygonModel : DrawingBaseModel
     {
         if (_path.Points.Count() > 2)
         {
-            //_path.Close();
+            _path.Close();
         }
     }
     public void Open()
