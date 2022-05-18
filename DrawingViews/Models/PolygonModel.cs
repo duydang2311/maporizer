@@ -6,6 +6,7 @@ public class PolygonModel : DrawingBaseModel
 {
     private PathF _path;
     public float StrokeWidth { get; set; }
+    public PathF Path { get => _path;  }
     public PolygonModel() : base()
     {
         _path = new PathF();
@@ -181,5 +182,20 @@ public class PolygonModel : DrawingBaseModel
     {
         _path = _path.AsScaledPath(scale);
         StrokeWidth *= scale;
+    }
+    public void Clip(PolygonModel drawing)
+    {
+        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint);
+        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint);
+        if (intersect1 is null || intersect2 is null)
+        {
+            return;
+        }
+        // TODO: use distance check for more accurate
+        var lastPoint = drawing.Path.LastPoint;
+        foreach (var point in drawing.Path.Points)
+        {
+            System.Diagnostics.Debug.WriteLine(lastPoint + " " + point + " " + intersect1 + " " + GeometryHelper.IsPointOnLine(lastPoint, point, (PointF)intersect1));
+        }
     }
 }
