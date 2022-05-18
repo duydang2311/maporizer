@@ -81,4 +81,10 @@ public static class GeometryHelper
         }
         return inside;
     }
+    public static bool IsPointOnLine(PointF lineStart, PointF lineEnd, PointF point)
+    {
+        var dx = lineEnd.Y - lineStart.Y;
+        var dy = lineStart.X - lineEnd.X;
+        return (dx * (point.X - lineStart.X) + dy * (point.Y - lineStart.Y)) == 0;
+    }
 }
