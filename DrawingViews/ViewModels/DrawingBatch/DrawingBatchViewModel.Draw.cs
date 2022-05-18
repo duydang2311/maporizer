@@ -1,13 +1,16 @@
-﻿using Maporizer.DrawingViews.Models;
-using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+﻿using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 using Maporizer.Helpers;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
+using Maporizer.DrawingViews.Models;
+
 public partial class DrawingBatchViewModel
 {
-    private bool drawing;
-    private PointF? lastPoint = null;
+    private bool drawing = false;
+    private PointF lastPoint;
+    private IDrawable? clippingDrawable = null;
+    private bool shouldClose = true;
     public void InitDrawInternal()
     {
         drawing = false;
@@ -26,6 +29,8 @@ public partial class DrawingBatchViewModel
                 if (intersect is not null)
                 {
                     lastPoint = intersect.Value;
+                    clippingDrawable = polygon;
+                    shouldClose = false;
                 }
             }
             drawing = true;
@@ -39,9 +44,19 @@ public partial class DrawingBatchViewModel
             if (PolygonBatch is not null)
             {
                 PolygonBatch.Simplify(45f * (View.Drawable as GraphicsDrawableModel)!.ScaleFactor);
-                PolygonBatch.Close();
+                if (clippingDrawable is not null)
+                {
+                    // TODO: implement clip
+                    //PolygonBatch.Clip(clippingDrawable);
+                }
+                if (shouldClose)
+                {
+                    PolygonBatch.Close();
+                }
                 PolygonBatch = null;
-                lastPoint = null;
+                lastPoint = PointF.Zero;
+                clippingDrawable = null;
+                shouldClose = true;
                 View.Invalidate();
             }
         }
@@ -56,14 +71,18 @@ public partial class DrawingBatchViewModel
                 PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
                 PolygonBatch.Scale(drawable.ScaleFactor);
                 drawable.Draw(PolygonBatch);
-                if (lastPoint is not null)
+                if (clippingDrawable is not null)
                 {
-                    PolygonBatch.Add(lastPoint.Value);
+                    PolygonBatch.Add(lastPoint);
                 }
             }
             var point = e.Touches[0];
-            if (lastPoint is null || GeometryHelper.DistanceSquared(lastPoint.Value, point) > 16 * drawable.ScaleFactor)
+            if (GeometryHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
             {
+                if (clippingDrawable is not null && !clippingDrawable.IsCollidedWith(point, true))
+                {
+                    return;
+                }
                 PolygonBatch.Add(point);
                 lastPoint = point;
                 View.Invalidate();
