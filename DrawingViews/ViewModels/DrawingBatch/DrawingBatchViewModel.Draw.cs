@@ -46,8 +46,7 @@ public partial class DrawingBatchViewModel
                 PolygonBatch.Simplify(45f * (View.Drawable as GraphicsDrawableModel)!.ScaleFactor);
                 if (clippingDrawable is not null)
                 {
-                    // TODO: implement clip
-                    //PolygonBatch.Clip(clippingDrawable);
+                    PolygonBatch.Clip((PolygonModel)clippingDrawable);
                 }
                 if (shouldClose)
                 {
