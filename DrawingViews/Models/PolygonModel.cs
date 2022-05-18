@@ -11,11 +11,45 @@ public class PolygonModel : DrawingBaseModel
         _path = new PathF();
         StrokeWidth = 5f;
     }
+    private (float, float, float, float)? GetCollidedLineWithInternal(PointF point, float? epsilon = null)
+    {
+        float y0 = point.Y;
+        float x0 = point.X;
+        float dx;
+        float dy;
+        float dist1;
+        float dist2;
+        float totalDist;
+        float lastX = _path.LastPoint.X;
+        float lastY = _path.LastPoint.Y;
+        epsilon ??= StrokeWidth * StrokeWidth * 2;
+        foreach (var p in _path.Points)
+        {
+            dx = x0 - lastX;
+            dy = y0 - lastY;
+            dist1 = dx * dx + dy * dy;
+            dx = p.X - x0;
+            dy = p.Y - y0;
+            dist2 = dx * dx + dy * dy;
+            dx = p.X - lastX;
+            dy = p.Y - lastY;
+            totalDist = dx * dx + dy * dy;
+
+
+            if (dist1 + dist2 + 2 * Math.Sqrt(dist1) * Math.Sqrt(dist2) - totalDist <= epsilon)
+            {
+                return (lastX, lastY, p.X, p.Y);
+            }
+            lastX = p.X;
+            lastY = p.Y;
+        }
+        return null;
+    }
     public void Close()
     {
         if (_path.Points.Count() > 2)
         {
-            _path.Close();
+            //_path.Close();
         }
     }
     public void Open()
@@ -69,39 +103,29 @@ public class PolygonModel : DrawingBaseModel
             }
         }
     }
-    public override bool IsCollidedWith(PointF point)
+    public override bool IsCollidedWith(PointF point, bool solid = false, float? epsilon = null)
     {
-        float y0 = point.Y;
-        float x0 = point.X;
-        float dx;
-        float dy;
-        float dist1;
-        float dist2;
-        float totalDist;
-        float lastX = _path.LastPoint.X;
-        float lastY = _path.LastPoint.Y;
-        float epsilon = StrokeWidth * StrokeWidth * 2;
-        foreach (var p in _path.Points)
+        if (solid && GeometryHelper.IsPointInsidePath(_path, point))
         {
-            dx = x0 - lastX;
-            dy = y0 - lastY;
-            dist1 = dx * dx + dy * dy;
-            dx = p.X - x0;
-            dy = p.Y - y0;
-            dist2 = dx * dx + dy * dy;
-            dx = p.X - lastX;
-            dy = p.Y - lastY;
-            totalDist = dx * dx + dy * dy;
-
-
-            if (dist1 + dist2 + 2 * Math.Sqrt(dist1) * Math.Sqrt(dist2) - totalDist <= epsilon)
-            {
-                return true;
-            }
-            lastX = p.X;
-            lastY = p.Y;
+            return true;
         }
-        return false;
+        return GetCollidedLineWithInternal(point, epsilon) is not null;
+    }
+    public override PointF? GetIntersectionPoint(PointF point, float? epsilon = null)
+    {
+        var points = GetCollidedLineWithInternal(point, epsilon);
+        if (points is null)
+        {
+            return null;
+        }
+        var dx = points.Value.Item4 - points.Value.Item2;
+        var dy = points.Value.Item1 - points.Value.Item3;
+        var intersect = GeometryHelper.GetIntersectionPointBetweenLines(new PointF(points.Value.Item1, points.Value.Item2), new PointF(points.Value.Item3, points.Value.Item4), point, new PointF(point.X - dx, point.Y - dy));
+        if (intersect != PointF.Zero)
+        {
+            return intersect;
+        }
+        return null;
     }
     //cross product is wrong for vertical line
     //public override bool IsCollidedWith(PointF point)

@@ -18,14 +18,19 @@ public class EllipseModel : DrawingBaseModel
         canvas.FillEllipse(rect);
         canvas.DrawEllipse(rect);
     }
-    public override bool IsCollidedWith(PointF point)
+    public override bool IsCollidedWith(PointF point, bool solid = true, float? epsilon = null)
     {
         var radius = (Size.Width + Size.Width / 25f) / 2;
+        epsilon ??= radius * radius;
         var center = new PointF(Location.X + radius, Location.Y + radius);
         var dx = point.X - center.X;
         var dy = point.Y - center.Y;
         var distanceSquared = dx * dx + dy * dy;
-        return distanceSquared <= radius * radius;
+        return distanceSquared < epsilon;
+    }
+    public override PointF? GetIntersectionPoint(PointF point, float? epsilon = null)
+    {
+        return null;
     }
     public override void Scale(float scale)
     {
