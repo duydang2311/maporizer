@@ -6,7 +6,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     {
         lock (Drawings)
         {
-            Drawings.AddLast(drawing);
+            Drawings.AddFirst(drawing);
         }
     }
     public void Draw(ICanvas canvas, RectF dirtyRect)
