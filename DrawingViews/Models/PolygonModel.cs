@@ -44,10 +44,8 @@ public class PolygonModel : DrawingBaseModel
     {
         // Visvalingam-Whyatt algorithm
         bool keepSimplifing = true;
-        int count = 0;
         while(keepSimplifing)
         {
-            System.Diagnostics.Debug.WriteLine(++count);
             keepSimplifing = false;
             var points = _path.Points.ToArray();
             var length = points.Length - 1;
