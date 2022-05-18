@@ -7,8 +7,8 @@ namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 public partial class DrawingBatchViewModel
 {
     private bool drawing;
-    private PointF lastPoint;
-    public void InitInteractionInternal()
+    private PointF? lastPoint = null;
+    public void InitDrawInternal()
     {
         drawing = false;
         View.StartInteraction += View_StartInteraction;
@@ -19,6 +19,15 @@ public partial class DrawingBatchViewModel
     {
         if (!drawing)
         {
+            var drawable = (GraphicsDrawableModel)View.Drawable;
+            if (drawable.HoveringDrawing is not null && drawable.HoveringDrawing is PolygonModel polygon)
+            {
+                var intersect = polygon.GetIntersectionPoint(e.Touches[0]);
+                if (intersect is not null)
+                {
+                    lastPoint = intersect.Value;
+                }
+            }
             drawing = true;
         }
     }
@@ -29,10 +38,10 @@ public partial class DrawingBatchViewModel
             drawing = false;
             if (PolygonBatch is not null)
             {
-                PolygonBatch.Simplify(45f * ((GraphicsDrawableModel)View.Drawable).ScaleFactor);
+                PolygonBatch.Simplify(45f * (View.Drawable as GraphicsDrawableModel)!.ScaleFactor);
                 PolygonBatch.Close();
                 PolygonBatch = null;
-                lastPoint = Point.Zero;
+                lastPoint = null;
                 View.Invalidate();
             }
         }
@@ -47,9 +56,13 @@ public partial class DrawingBatchViewModel
                 PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
                 PolygonBatch.Scale(drawable.ScaleFactor);
                 drawable.Draw(PolygonBatch);
+                if (lastPoint is not null)
+                {
+                    PolygonBatch.Add(lastPoint.Value);
+                }
             }
             var point = e.Touches[0];
-            if (GeometryHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
+            if (lastPoint is null || GeometryHelper.DistanceSquared(lastPoint.Value, point) > 16 * drawable.ScaleFactor)
             {
                 PolygonBatch.Add(point);
                 lastPoint = point;

@@ -9,6 +9,6 @@ public partial class DrawingBatchViewModel
     public DrawingBatchViewModel(GraphicsView graphicsView)
     {
         View = graphicsView;
-        InitInteractionInternal();
+        InitDrawInternal();
     }
 }
