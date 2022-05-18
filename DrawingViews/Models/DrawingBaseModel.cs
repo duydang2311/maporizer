@@ -10,6 +10,7 @@ public abstract class DrawingBaseModel : IDrawable
         FillColor = Colors.Transparent;
     }
     public abstract void Draw(ICanvas canvas, RectF dirtyRect);
-    public abstract bool IsCollidedWith(PointF point);
+    public abstract bool IsCollidedWith(PointF point, bool solid = false, float? epsilon = null);
+    public abstract PointF? GetIntersectionPoint(PointF point, float? epsilon = null);
     public abstract void Scale(float scale);
 }
