@@ -1,4 +1,6 @@
-﻿namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+﻿using Maporizer.Helpers;
+
+namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
 public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
 {
@@ -25,7 +27,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
                 IDrawable? collided = null;
                 foreach (IDrawable drawing in Drawings)
                 {
-                    if (drawing.IsCollidedWith(moveHover_touchPoint))
+                    if (drawing.IsCollidedWith(moveHover_touchPoint, true))
                     {
                         collided = drawing;
                         break;
