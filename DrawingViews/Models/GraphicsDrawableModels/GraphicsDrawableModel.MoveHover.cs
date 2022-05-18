@@ -9,6 +9,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     private Point moveHover_touchPoint;
     private IDrawable? moveHover_drawing;
     private readonly object mutex = new();
+    public IDrawable? HoveringDrawing { get => moveHover_drawing; }
     private void InitMoveHoverInternal()
     {
         moveHover_resetEvent = new AutoResetEvent(false);
