@@ -31,6 +31,7 @@ public partial class DrawingBatchViewModel
                 }
                 lastPoint = intersect.Value;
                 clippingDrawable = polygon;
+                polygon.Ignored = true;
             }
             drawing = true;
         }
@@ -46,6 +47,7 @@ public partial class DrawingBatchViewModel
                 if (clippingDrawable is not null)
                 {
                     PolygonBatch.Clip((PolygonModel)clippingDrawable);
+                    clippingDrawable!.Ignored = false;
                 }
                 PolygonBatch.Close();
                 PolygonBatch = null;
