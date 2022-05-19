@@ -10,7 +10,6 @@ public partial class DrawingBatchViewModel
     private bool drawing = false;
     private PointF lastPoint;
     private IDrawable? clippingDrawable = null;
-    private bool shouldClose = true;
     public void InitDrawInternal()
     {
         drawing = false;
@@ -30,7 +29,6 @@ public partial class DrawingBatchViewModel
                 {
                     lastPoint = intersect.Value;
                     clippingDrawable = polygon;
-                    shouldClose = false;
                 }
             }
             drawing = true;
@@ -48,14 +46,10 @@ public partial class DrawingBatchViewModel
                 {
                     PolygonBatch.Clip((PolygonModel)clippingDrawable);
                 }
-                if (shouldClose)
-                {
-                    PolygonBatch.Close();
-                }
+                PolygonBatch.Close();
                 PolygonBatch = null;
                 lastPoint = PointF.Zero;
                 clippingDrawable = null;
-                shouldClose = true;
                 View.Invalidate();
             }
         }
