@@ -6,7 +6,7 @@ public class PolygonModel : DrawingBaseModel
 {
     private PathF _path;
     public float StrokeWidth { get; set; }
-    public PathF Path { get => _path;  }
+    public PathF Path { get => _path; private set => _path = value; }
     public PolygonModel() : base()
     {
         _path = new PathF();
@@ -128,56 +128,6 @@ public class PolygonModel : DrawingBaseModel
         }
         return null;
     }
-    //cross product is wrong for vertical line
-    //public override bool IsCollidedWith(PointF point)
-    //{
-    //    float y0 = point.Y;
-    //    float x0 = point.X;
-    //    float dx1;
-    //    float dy1;
-    //    float dx2;
-    //    float dy2;
-    //    float cross;
-    //    float lastX = _path.LastPoint.X;
-    //    float lastY = _path.LastPoint.Y;
-    //    float epsilon = StrokeWidth * StrokeWidth * StrokeWidth;
-    //    foreach (var p in _path.Points)
-    //    {
-    //        dx1 = x0 - lastX;
-    //        dy1 = y0 - lastY;
-    //        dx2 = p.X - lastX;
-    //        dy2 = p.Y - lastY;
-    //        cross = dx1 * dy2 - dy1 * dx2;
-    //        if (Math.Abs(cross) <= epsilon)
-    //        {
-    //            if (Math.Abs(dx2) > Math.Abs(dy2))
-    //            {
-    //                if (dx2 > 0 && lastX <= x0 && x0 <= p.X)
-    //                {
-    //                    return true;
-    //                }
-    //                else if (dx2 <= 0 && p.X <= x0 && x0 <= lastX)
-    //                {
-    //                    return true;
-    //                }
-    //            }
-    //            else
-    //            {
-    //                if (dy2 > 0 && lastY <= y0 && y0 <= p.Y)
-    //                {
-    //                    return true;
-    //                }
-    //                else if (dy2 <= 0 && p.Y <= y0 && y0 <= lastY)
-    //                {
-    //                    return true;
-    //                }
-    //            }
-    //        }
-    //        lastX = p.X;
-    //        lastY = p.Y;
-    //    }
-    //    return false;
-    //}
     public override void Scale(float scale)
     {
         _path = _path.AsScaledPath(scale);
@@ -191,11 +141,68 @@ public class PolygonModel : DrawingBaseModel
         {
             return;
         }
-        // TODO: use distance check for more accurate
-        var lastPoint = drawing.Path.LastPoint;
-        foreach (var point in drawing.Path.Points)
+        var points = drawing.Path.Points.ToArray();
+        var polygon = new List<PointF>();
+        var reverse = _path.Points.Reverse();
+        bool reversed = false;
+        byte count = 0;
+        int start = -1;
+        int end = -1;
+        for (int i = 0, length = points.Length; i != length; ++i)
         {
-            System.Diagnostics.Debug.WriteLine(lastPoint + " " + point + " " + intersect1 + " " + GeometryHelper.IsPointOnLine(lastPoint, point, (PointF)intersect1));
+            if (count == 1)
+            {
+                polygon.AddRange(reversed ? reverse : _path.Points);
+                ++count;
+                continue;
+            }
+            var next = (i - 1);
+            if (next < 0)
+            {
+                next = length - 1;
+            }
+            if (GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect1)
+            || GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect2))
+            {
+                if (start == -1)
+                {
+                    start = i;
+                    if (GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect2))
+                    {
+                        reversed = true;
+                    }
+                }
+                else if (end == -1)
+                {
+                    end = i;
+                }
+                ++count;
+                continue;
+            }
+            if (count != 2)
+            {
+                polygon.Add(points[i]);
+            }
+        }
+        drawing.Path.Dispose();
+        drawing.Path = new PathF();
+        foreach (var i in polygon)
+        {
+            drawing.Add(i);
+        }
+        drawing.Path.Close();
+
+        polygon = new List<PointF>();
+        for (int i = start; i != end; ++i)
+        {
+            polygon.Add(points[i]);
+        }
+        polygon.AddRange(reversed ? _path.Points : reverse);
+        _path.Dispose();
+        _path = new PathF();
+        foreach (var i in polygon)
+        {
+            _path.LineTo(i);
         }
     }
 }
