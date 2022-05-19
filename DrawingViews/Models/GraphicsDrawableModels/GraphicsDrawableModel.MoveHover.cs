@@ -43,11 +43,11 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
                     {
                         if (reset is not null)
                         {
-                            reset.StrokeColor = Colors.White;
+                            reset.FillColor = Colors.Transparent;
                         }
                         if (collided is not null)
                         {
-                            collided.StrokeColor = Colors.Red;
+                            collided.FillColor = Colors.ForestGreen;
                         }
                         GraphicsView.Invalidate();
                     });
