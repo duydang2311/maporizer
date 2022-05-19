@@ -24,12 +24,13 @@ public partial class DrawingBatchViewModel
             var drawable = (GraphicsDrawableModel)View.Drawable;
             if (drawable.HoveringDrawing is not null && drawable.HoveringDrawing is PolygonModel polygon)
             {
-                var intersect = polygon.GetIntersectionPoint(e.Touches[0]);
-                if (intersect is not null)
+                var intersect = polygon.GetIntersectionPoint(e.Touches[0], (float)Math.Pow(polygon.StrokeWidth, 4));
+                if (intersect is null)
                 {
-                    lastPoint = intersect.Value;
-                    clippingDrawable = polygon;
+                    return;
                 }
+                lastPoint = intersect.Value;
+                clippingDrawable = polygon;
             }
             drawing = true;
         }
@@ -72,9 +73,17 @@ public partial class DrawingBatchViewModel
             var point = e.Touches[0];
             if (GeometryHelper.DistanceSquared(lastPoint, point) > 16 * drawable.ScaleFactor)
             {
-                if (clippingDrawable is not null && !clippingDrawable.IsCollidedWith(point, true))
+                if (clippingDrawable is not null)
                 {
-                    return;
+                    var intersect = clippingDrawable.GetIntersectionPoint(point, (float)Math.Pow((clippingDrawable as PolygonModel)!.StrokeWidth, 3));
+                    if (intersect is not null)
+                    {
+                        point = intersect.Value;
+                    }
+                    else if(!clippingDrawable.IsCollidedWith(point, true))
+                    {
+                        return;
+                    }
                 }
                 PolygonBatch.Add(point);
                 lastPoint = point;
