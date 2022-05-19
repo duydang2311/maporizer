@@ -104,13 +104,13 @@ public class PolygonModel : DrawingBaseModel
             }
         }
     }
-    public override bool IsCollidedWith(PointF point, bool solid = false, float? epsilon = null)
+    public override bool HasPointOn(PointF point, float? epsilon = null)
     {
-        if (solid && GeometryHelper.IsPointInsidePath(_path, point))
-        {
-            return true;
-        }
         return GetCollidedLineWithInternal(point, epsilon) is not null;
+    }
+    public override bool HasPointIn(PointF point)
+    {
+        return GeometryHelper.IsPointInsidePath(_path, point);
     }
     public override PointF? GetIntersectionPoint(PointF point, float? epsilon = null)
     {

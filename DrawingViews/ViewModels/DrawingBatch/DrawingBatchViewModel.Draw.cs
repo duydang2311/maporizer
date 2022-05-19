@@ -75,14 +75,14 @@ public partial class DrawingBatchViewModel
             {
                 if (clippingDrawable is not null)
                 {
+                    if(!clippingDrawable.HasPointIn(point))
+                    {
+                        return;
+                    }
                     var intersect = clippingDrawable.GetIntersectionPoint(point, (float)Math.Pow((clippingDrawable as PolygonModel)!.StrokeWidth, 3));
                     if (intersect is not null)
                     {
                         point = intersect.Value;
-                    }
-                    else if(!clippingDrawable.IsCollidedWith(point, true))
-                    {
-                        return;
                     }
                 }
                 PolygonBatch.Add(point);

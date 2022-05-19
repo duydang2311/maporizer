@@ -28,7 +28,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
                 IDrawable? collided = null;
                 foreach (IDrawable drawing in Drawings)
                 {
-                    if (drawing.IsCollidedWith(moveHover_touchPoint, true))
+                    if (drawing.HasPointIn(moveHover_touchPoint))
                     {
                         collided = drawing;
                         break;
