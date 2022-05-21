@@ -43,16 +43,25 @@ public partial class DrawingBatchViewModel
             drawing = false;
             if (PolygonBatch is not null)
             {
+                lastPoint = PointF.Zero;
                 PolygonBatch.Simplify(45f * (View.Drawable as GraphicsDrawableModel)!.ScaleFactor);
                 if (clippingDrawable is not null)
                 {
-                    PolygonBatch.TryClip((PolygonModel)clippingDrawable);
+                    var success = PolygonBatch.TryClip((PolygonModel)clippingDrawable);
                     clippingDrawable!.Ignored = false;
+                    clippingDrawable = null;
+
+                    if (!success)
+                    {
+                        (View.Drawable as GraphicsDrawableModel)!.Remove(PolygonBatch);
+                        PolygonBatch.Path.Dispose();
+                        PolygonBatch = null;
+                        View.Invalidate();
+                        return;
+                    }
                 }
                 PolygonBatch.Close();
                 PolygonBatch = null;
-                lastPoint = PointF.Zero;
-                clippingDrawable = null;
                 View.Invalidate();
             }
         }
