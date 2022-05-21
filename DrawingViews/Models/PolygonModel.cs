@@ -133,13 +133,13 @@ public class PolygonModel : DrawingBaseModel
         _path = _path.AsScaledPath(scale);
         StrokeWidth *= scale;
     }
-    public void Clip(PolygonModel drawing)
+    public bool TryClip(PolygonModel drawing)
     {
-        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint, StrokeWidth * StrokeWidth * 4);
-        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint, StrokeWidth * StrokeWidth * 4);
+        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint);
+        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint);
         if (intersect1 is null || intersect2 is null)
         {
-            return;
+            return false;
         }
         var points = drawing.Path.Points.ToArray();
         var polygon = new List<PointF>();
@@ -185,6 +185,10 @@ public class PolygonModel : DrawingBaseModel
                 polygon.Add(points[i]);
             }
         }
+        if (end == -1)
+        {
+            return false;
+        }
         drawing.Path.Dispose();
         drawing.Path = new PathF();
         foreach (var i in polygon)
@@ -205,5 +209,6 @@ public class PolygonModel : DrawingBaseModel
         {
             _path.LineTo(i);
         }
+        return true;
     }
 }
