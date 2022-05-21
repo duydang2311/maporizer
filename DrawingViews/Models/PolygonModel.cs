@@ -135,8 +135,8 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Clip(PolygonModel drawing)
     {
-        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint);
-        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint);
+        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint, StrokeWidth * StrokeWidth * 4);
+        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint, StrokeWidth * StrokeWidth * 4);
         if (intersect1 is null || intersect2 is null)
         {
             return;
@@ -156,28 +156,29 @@ public class PolygonModel : DrawingBaseModel
                 ++count;
                 continue;
             }
-            var next = (i - 1);
-            if (next < 0)
+            var previous = i - 1;
+            if (previous < 0)
             {
-                next = length - 1;
+                previous = length - 1;
             }
-            if (GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect1)
-            || GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect2))
+            if 
+            (
+                end == -1 &&
+                (GeometryHelper.IsPointOnLine(points[i], points[previous], (PointF)intersect1)
+                || GeometryHelper.IsPointOnLine(points[i], points[previous], (PointF)intersect2))
+            )
             {
+                ++count;
                 if (start == -1)
                 {
                     start = i;
-                    if (GeometryHelper.IsPointOnLine(points[i], points[next], (PointF)intersect2))
+                    if (GeometryHelper.IsPointOnLine(points[i], points[previous], (PointF)intersect2))
                     {
                         reversed = true;
                     }
+                    continue;
                 }
-                else if (end == -1)
-                {
-                    end = i;
-                }
-                ++count;
-                continue;
+                end = i;
             }
             if (count != 2)
             {
