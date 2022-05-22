@@ -9,8 +9,8 @@
     <ListView
         HorizontalScrollBarVisibility="Never"
         VerticalScrollBarVisibility="Never"
-        ItemsSource="{Binding Items}"
-        SelectedItem="{Binding SelectedItem}"
+        ItemsSource="{Binding Items, Mode=OneTime}"
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
         Header="{Binding .}"
         SeparatorColor="{StaticResource Primary}"
         RowHeight="50"
@@ -26,14 +26,14 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <ImageButton
-                        Source="{Binding Source}"
+                    <Image 
+                        Source="{Binding Source, Mode=OneWay}"
                         Aspect="AspectFit"
                         IsOpaque="True"
                         BackgroundColor="Transparent"
                         HorizontalOptions="Center"
+                        Scale="0.8"
                         VerticalOptions="Center"
-                        Padding="5"
                         HeightRequest="50"
                         WidthRequest="80" />
                 </ViewCell>
