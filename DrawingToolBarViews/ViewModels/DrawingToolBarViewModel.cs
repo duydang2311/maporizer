@@ -1,16 +1,16 @@
-﻿using Maporizer.DrawingToolBarViews.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using Maporizer.Helpers;
 
 namespace Maporizer.DrawingToolBarViews.ViewModels;
 
 public class DrawingToolBarViewModel : INotifyPropertyChanged
 {
-    public ToolBarItemModel[] Items { get; set; }
-    private ToolBarItemModel selectedItem = null!;
-    private readonly ToolBarItemModel createItem;
-    private readonly ToolBarItemModel connectItem;
+    public ToolBarItemViewModel[] Items { get; }
+    private ToolBarItemViewModel selectedItem;
+    private readonly ToolBarItemViewModel drawItem;
+    private readonly ToolBarItemViewModel moveItem;
 
-    public ToolBarItemModel SelectedItem
+    public ToolBarItemViewModel SelectedItem
     {
         get => selectedItem;
         set
@@ -29,13 +29,19 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
 
     public DrawingToolBarViewModel()
     {
-        createItem = new() { Source = ImageSource.FromFile("plus_light.png") };
-        connectItem = new() { Source = ImageSource.FromFile("connect_light.png") };
-        Items = new ToolBarItemModel[]
+        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand);
+        moveItem = new(ThemeHelper.GetImageSource("cursor"), MoveItemCommand);
+        Items = new ToolBarItemViewModel[]
         {
-            createItem,
-            connectItem
+            drawItem,
+            moveItem
         };
-        SelectedItem = createItem;
+        selectedItem = moveItem;
+    }
+    private void DrawItemCommand()
+    {
+    }
+    private void MoveItemCommand()
+    {
     }
 }
