@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Maporizer.DrawingToolBarViews.Models;
 
 namespace Maporizer.DrawingToolBarViews.ViewModels;
 
@@ -6,6 +7,7 @@ public class ToolBarItemViewModel : INotifyPropertyChanged
 {
     private ImageSource source;
     public Command Command { get; }
+    public DrawingMode Mode { get; }
 
     public ImageSource Source
     {
@@ -23,9 +25,10 @@ public class ToolBarItemViewModel : INotifyPropertyChanged
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-    public ToolBarItemViewModel(ImageSource source, Action execute)
+    public ToolBarItemViewModel(ImageSource source, Action execute, DrawingMode mode)
     {
         this.source = source;
+        Mode = mode;
         Command = new Command(execute);
     }
 }

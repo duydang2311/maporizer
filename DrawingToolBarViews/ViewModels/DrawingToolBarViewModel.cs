@@ -1,15 +1,18 @@
 ﻿using System.ComponentModel;
 using Maporizer.Helpers;
+using Maporizer.DrawingToolBarViews.Models;
 
 namespace Maporizer.DrawingToolBarViews.ViewModels;
 
 public class DrawingToolBarViewModel : INotifyPropertyChanged
 {
-    public ToolBarItemViewModel[] Items { get; }
     private ToolBarItemViewModel selectedItem;
     private readonly ToolBarItemViewModel drawItem;
     private readonly ToolBarItemViewModel moveItem;
 
+    public ToolBarItemViewModel[] Items { get; }
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public event Action<DrawingMode>? ItemSelected;
     public ToolBarItemViewModel SelectedItem
     {
         get => selectedItem;
@@ -22,15 +25,18 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
                 }
+                if (ItemSelected is not null)
+                {
+                    ItemSelected(selectedItem.Mode);
+                }
             }
         }
     }
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     public DrawingToolBarViewModel()
     {
-        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand);
-        moveItem = new(ThemeHelper.GetImageSource("cursor"), MoveItemCommand);
+        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand, DrawingMode.Draw);
+        moveItem = new(ThemeHelper.GetImageSource("cursor"), MoveItemCommand, DrawingMode.Move);
         Items = new ToolBarItemViewModel[]
         {
             drawItem,
