@@ -8,14 +8,14 @@ public partial class DrawingView : ContentView
 
     private void Slider_Scaling_ValueChanged(object? sender, ValueChangedEventArgs e)
     {
-        var drawable = (GraphicsDrawableModel)GraphicsView.Drawable;
+        var drawable = (GraphicsDrawableModel)_GraphicsView.Drawable;
         int remainder = (int)Math.Round(e.NewValue / scaleUnit);
         var snappedValue = remainder * 25;
         var oldScaleFactor = drawable.ScaleFactor;
         (sender as Slider)!.Value = snappedValue;
-        GraphicsView.WidthRequest = GraphicsView.WidthRequest / oldScaleFactor * (snappedValue / 100f);
-        GraphicsView.HeightRequest = GraphicsView.HeightRequest / oldScaleFactor * (snappedValue / 100f);
+        _GraphicsView.WidthRequest = _GraphicsView.WidthRequest / oldScaleFactor * (snappedValue / 100f);
+        _GraphicsView.HeightRequest = _GraphicsView.HeightRequest / oldScaleFactor * (snappedValue / 100f);
         drawable.ScaleFactor = snappedValue / 100f;
-        GraphicsView.Invalidate();
+        _GraphicsView.Invalidate();
     }
 }
