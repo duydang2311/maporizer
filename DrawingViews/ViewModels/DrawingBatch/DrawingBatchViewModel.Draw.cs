@@ -1,4 +1,5 @@
-﻿using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+﻿using Maporizer.DrawingToolBarViews.Models;
+using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 using Maporizer.Helpers;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
@@ -13,28 +14,29 @@ public partial class DrawingBatchViewModel
     public void InitDrawInternal()
     {
         drawing = false;
-        View.StartInteraction += View_StartInteraction;
-        View.MoveHoverInteraction += View_MoveHoverInteraction;
-        View.EndInteraction += View_EndInteraction;
+        GraphicsView.StartInteraction += View_StartInteraction;
+        GraphicsView.MoveHoverInteraction += View_MoveHoverInteraction;
+        GraphicsView.EndInteraction += View_EndInteraction;
     }
     private void View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (!drawing)
+        if (drawing || Root.Mode != DrawingMode.Draw)
         {
-            var drawable = (GraphicsDrawableModel)View.Drawable;
-            if (drawable.HoveringDrawing is not null && drawable.HoveringDrawing is PolygonModel polygon)
-            {
-                var intersect = polygon.GetIntersectionPoint(e.Touches[0], (float)Math.Pow(polygon.StrokeWidth, 4));
-                if (intersect is null)
-                {
-                    return;
-                }
-                lastPoint = intersect.Value;
-                clippingDrawable = polygon;
-                polygon.Ignored = true;
-            }
-            drawing = true;
+            return;
         }
+        var drawable = (GraphicsDrawableModel)GraphicsView.Drawable;
+        if (drawable.HoveringDrawing is not null && drawable.HoveringDrawing is PolygonModel polygon)
+        {
+            var intersect = polygon.GetIntersectionPoint(e.Touches[0], (float)Math.Pow(polygon.StrokeWidth, 4));
+            if (intersect is null)
+            {
+                return;
+            }
+            lastPoint = intersect.Value;
+            clippingDrawable = polygon;
+            polygon.Ignored = true;
+        }
+        drawing = true;
     }
     private void View_EndInteraction(object? sender, TouchEventArgs e)
     {
@@ -44,7 +46,7 @@ public partial class DrawingBatchViewModel
             if (PolygonBatch is not null)
             {
                 lastPoint = PointF.Zero;
-                PolygonBatch.Simplify(45f * (View.Drawable as GraphicsDrawableModel)!.ScaleFactor);
+                PolygonBatch.Simplify(45f * (GraphicsView.Drawable as GraphicsDrawableModel)!.ScaleFactor);
                 if (clippingDrawable is not null)
                 {
                     var success = PolygonBatch.TryClip((PolygonModel)clippingDrawable);
@@ -53,16 +55,16 @@ public partial class DrawingBatchViewModel
 
                     if (!success)
                     {
-                        (View.Drawable as GraphicsDrawableModel)!.Remove(PolygonBatch);
+                        (GraphicsView.Drawable as GraphicsDrawableModel)!.Remove(PolygonBatch);
                         PolygonBatch.Path.Dispose();
                         PolygonBatch = null;
-                        View.Invalidate();
+                        GraphicsView.Invalidate();
                         return;
                     }
                 }
                 PolygonBatch.Close();
                 PolygonBatch = null;
-                View.Invalidate();
+                GraphicsView.Invalidate();
             }
         }
     }
@@ -70,7 +72,7 @@ public partial class DrawingBatchViewModel
     {
         if (drawing)
         {
-            var drawable = (GraphicsDrawableModel)View.Drawable;
+            var drawable = (GraphicsDrawableModel)GraphicsView.Drawable;
             if (PolygonBatch is null)
             {
                 PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
@@ -98,7 +100,7 @@ public partial class DrawingBatchViewModel
                 }
                 PolygonBatch.Add(point);
                 lastPoint = point;
-                View.Invalidate();
+                GraphicsView.Invalidate();
             }
         }
     }

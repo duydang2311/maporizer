@@ -1,14 +1,17 @@
 ﻿using Maporizer.DrawingViews.Models;
+using Maporizer.DrawingViews;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
 public partial class DrawingBatchViewModel
 {
-    public GraphicsView View { get; }
+    public IDrawingView Root { get; }
+    public GraphicsView GraphicsView { get; }
     public PolygonModel? PolygonBatch { get; private set; } = null;
-    public DrawingBatchViewModel(GraphicsView graphicsView)
+    public DrawingBatchViewModel(IDrawingView root)
     {
-        View = graphicsView;
+        Root = root;
+        GraphicsView = (GraphicsView)root.GraphicsView;
         InitDrawInternal();
     }
 }
