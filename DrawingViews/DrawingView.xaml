@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolbarview="clr-namespace:Maporizer.DrawingToolBarViews"
+             xmlns:toolbarvm="clr-namespace:Maporizer.DrawingToolBarViews.ViewModels"
              x:Class="Maporizer.DrawingViews.DrawingView">
 
     <ContentView.Resources>
@@ -20,7 +21,8 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <toolbarview:DrawingToolBarView Grid.Column="0" />
+        <toolbarview:DrawingToolBarView Grid.Column="0" x:Name="ToolBarView"/>
+
         <Border
             Grid.Column="1"
             Stroke="{StaticResource Secondary}"
