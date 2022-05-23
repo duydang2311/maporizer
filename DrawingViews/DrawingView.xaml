@@ -39,7 +39,7 @@
                     <Border
                         StrokeThickness="0">
                         <GraphicsView
-                            x:Name="GraphicsView"
+                            x:Name="_GraphicsView"
                             MoveHoverInteraction="GraphicsView_MoveHoverInteraction"
                             WidthRequest="4000"
                             HeightRequest="4000" />

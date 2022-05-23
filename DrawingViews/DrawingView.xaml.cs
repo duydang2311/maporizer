@@ -1,14 +1,19 @@
 using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 using Maporizer.DrawingViews.ViewModels.DrawingBatch;
+using Maporizer.DrawingToolBarViews.ViewModels;
+using Maporizer.DrawingToolBarViews.Models;
 
 namespace Maporizer.DrawingViews;
 
-public partial class DrawingView : ContentView
+public partial class DrawingView : IDrawingView
 {
+    // Yet another shitty workaround to implement IDrawingView
+    // Because the actual graphics view property is not available until code-gen
+    public IGraphicsView GraphicsView { get => _GraphicsView; }
 	public DrawingView()
 	{
 		InitializeComponent();
-        GraphicsView.Drawable = new GraphicsDrawableModel(GraphicsView);
+        _GraphicsView.Drawable = new GraphicsDrawableModel(_GraphicsView);
         // Workaround for slider related issue, see https://github.com/dotnet/maui/issues/6957
         Task.Run(() =>
         {
@@ -18,7 +23,8 @@ public partial class DrawingView : ContentView
                 Slider.Value = 100;
             });
         });
-        new DrawingBatchViewModel(GraphicsView);
+        new DrawingBatchViewModel(this);
+        ToolBarVM_InitInternal();
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
