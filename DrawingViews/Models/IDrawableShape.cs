@@ -1,6 +1,6 @@
 ﻿namespace Maporizer.DrawingViews.Models;
 
-public interface IDrawable
+public interface IDrawableShape
 {
     public Color StrokeColor { get; set; }
     public Color FillColor { get; set; }

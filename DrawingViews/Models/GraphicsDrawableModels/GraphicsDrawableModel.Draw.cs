@@ -2,14 +2,14 @@
 
 public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
 {
-    public void Remove(IDrawable drawing)
+    public void Remove(IDrawableShape drawing)
     {
         lock (Drawings)
         {
             Drawings.Remove(drawing);
         }
     }
-    public void Draw(IDrawable drawing)
+    public void Draw(IDrawableShape drawing)
     {
         lock (Drawings)
         {

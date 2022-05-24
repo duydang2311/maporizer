@@ -10,7 +10,7 @@ public partial class DrawingBatchViewModel
 {
     private bool drawing = false;
     private PointF lastPoint;
-    private IDrawable? clippingDrawable = null;
+    private IDrawableShape? clippingDrawable = null;
     public void InitDrawInternal()
     {
         drawing = false;

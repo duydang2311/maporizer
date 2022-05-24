@@ -3,7 +3,7 @@
 public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
 {
     private const float defaultSize = 100f;
-    public LinkedList<IDrawable> Drawings { get; }
+    public LinkedList<IDrawableShape> Drawings { get; }
     public GraphicsView GraphicsView { get; }
     private float scaleFactor = 1f;
     public float ScaleFactor {

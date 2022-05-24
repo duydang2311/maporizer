@@ -1,6 +1,6 @@
 ﻿namespace Maporizer.DrawingViews.Models;
 
-public abstract class DrawingBaseModel : IDrawable
+public abstract class DrawingBaseModel : IDrawableShape
 {
     public Color StrokeColor { get; set; }
     public Color FillColor { get; set; }
