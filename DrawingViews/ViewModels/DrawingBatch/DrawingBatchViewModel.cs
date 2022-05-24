@@ -13,5 +13,6 @@ public partial class DrawingBatchViewModel
         Root = root;
         GraphicsView = (GraphicsView)root.GraphicsView;
         InitDrawInternal();
+        InitEraseInternal();
     }
 }

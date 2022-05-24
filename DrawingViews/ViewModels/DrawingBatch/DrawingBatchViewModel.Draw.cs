@@ -11,7 +11,7 @@ public partial class DrawingBatchViewModel
     private bool drawing = false;
     private PointF lastPoint;
     private IDrawableShape? clippingDrawable = null;
-    public void InitDrawInternal()
+    private void InitDrawInternal()
     {
         drawing = false;
         GraphicsView.StartInteraction += View_StartInteraction;
