@@ -211,4 +211,19 @@ public class PolygonModel : DrawingBaseModel
         }
         return true;
     }
+    public override void Translate(SizeF offset)
+    {
+        _path.Move(offset.Width, offset.Height);
+    }
+    protected override void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+            }
+            _path.Dispose();
+            disposed = true;
+        }
+    }
 }

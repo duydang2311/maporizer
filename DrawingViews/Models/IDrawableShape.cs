@@ -1,13 +1,14 @@
 ﻿namespace Maporizer.DrawingViews.Models;
 
-public interface IDrawableShape
+public interface IDrawableShape : IDisposable
 {
-    public Color StrokeColor { get; set; }
-    public Color FillColor { get; set; }
-    public bool Ignored { get; set; }
-    public void Draw(ICanvas canvas, RectF dirtyRect);
-    public bool HasPointOn(PointF point, float? epsilon = null);
-    public bool HasPointIn(PointF point);
-    public PointF? GetIntersectionPoint(PointF point, float? epsilon = null);
-    public void Scale(float scale);
+    Color StrokeColor { get; set; }
+    Color FillColor { get; set; }
+    bool Ignored { get; set; }
+    void Draw(ICanvas canvas, RectF dirtyRect);
+    bool HasPointOn(PointF point, float? epsilon = null);
+    bool HasPointIn(PointF point);
+    PointF? GetIntersectionPoint(PointF point, float? epsilon = null);
+    void Scale(float scale);
+    void Translate(SizeF offset);
 }

@@ -2,6 +2,8 @@
 
 public abstract class DrawingBaseModel : IDrawableShape
 {
+    protected bool disposed;
+
     public Color StrokeColor { get; set; }
     public Color FillColor { get; set; }
     public bool Ignored { get; set; }
@@ -16,4 +18,15 @@ public abstract class DrawingBaseModel : IDrawableShape
     public abstract bool HasPointIn(PointF point);
     public abstract PointF? GetIntersectionPoint(PointF point, float? epsilon = null);
     public abstract void Scale(float scale);
+    public abstract void Translate(SizeF offset);
+    protected abstract void Dispose(bool disposing);
+    ~DrawingBaseModel()
+    {
+        Dispose(disposing: false);
+    }
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
 }
