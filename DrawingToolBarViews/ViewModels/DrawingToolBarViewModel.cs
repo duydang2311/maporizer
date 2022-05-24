@@ -7,8 +7,9 @@ namespace Maporizer.DrawingToolBarViews.ViewModels;
 public class DrawingToolBarViewModel : INotifyPropertyChanged
 {
     private ToolBarItemViewModel selectedItem;
-    private readonly ToolBarItemViewModel drawItem;
     private readonly ToolBarItemViewModel moveItem;
+    private readonly ToolBarItemViewModel drawItem;
+    private readonly ToolBarItemViewModel eraseItem;
 
     public ToolBarItemViewModel[] Items { get; }
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -35,12 +36,14 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
 
     public DrawingToolBarViewModel()
     {
-        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand, DrawingMode.Draw);
         moveItem = new(ThemeHelper.GetImageSource("cursor"), MoveItemCommand, DrawingMode.Move);
+        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand, DrawingMode.Draw);
+        eraseItem = new(ThemeHelper.GetImageSource("erase"), EraseItemCommand, DrawingMode.Erase);
         Items = new ToolBarItemViewModel[]
         {
+            moveItem,
             drawItem,
-            moveItem
+            eraseItem
         };
         selectedItem = moveItem;
     }
@@ -48,6 +51,9 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
     {
     }
     private void MoveItemCommand()
+    {
+    }
+    private void EraseItemCommand()
     {
     }
 }

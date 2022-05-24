@@ -4,5 +4,6 @@ public enum DrawingMode : byte
 {
     None,
     Draw,
-    Move
+    Move,
+    Erase
 }
