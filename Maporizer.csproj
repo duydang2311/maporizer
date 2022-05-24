@@ -40,6 +40,12 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" BaseSize="128,128" />
+		<MauiImage Update="Resources\Images\draw_light.svg" TintColor="Black" />
+		<MauiImage Update="Resources\Images\draw_dark.svg" TintColor="White" />
+		<MauiImage Update="Resources\Images\cursor_light.svg" TintColor="Black" />
+		<MauiImage Update="Resources\Images\cursor_dark.svg" TintColor="White" />
+		<MauiImage Update="Resources\Images\erase_light.svg" TintColor="Black" />
+		<MauiImage Update="Resources\Images\erase_dark.svg" TintColor="White" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
