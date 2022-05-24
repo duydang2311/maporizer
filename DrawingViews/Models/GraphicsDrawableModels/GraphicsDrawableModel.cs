@@ -1,6 +1,6 @@
 ﻿namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
-public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
+public partial class GraphicsDrawableModel : IDrawable
 {
     private const float defaultSize = 100f;
     public LinkedList<IDrawableShape> Drawings { get; }
@@ -23,7 +23,7 @@ public partial class GraphicsDrawableModel : Microsoft.Maui.Graphics.IDrawable
     }
     public GraphicsDrawableModel(GraphicsView graphicsView)
     {
-        Drawings = new();
+        Drawings = new LinkedList<IDrawableShape>();
         scaleFactor = 1f;
         GraphicsView = graphicsView;
 
