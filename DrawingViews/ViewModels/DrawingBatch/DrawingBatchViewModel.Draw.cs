@@ -14,11 +14,11 @@ public partial class DrawingBatchViewModel
     private void InitDrawInternal()
     {
         drawing = false;
-        GraphicsView.StartInteraction += View_StartInteraction;
-        GraphicsView.MoveHoverInteraction += View_MoveHoverInteraction;
-        GraphicsView.EndInteraction += View_EndInteraction;
+        GraphicsView.StartInteraction += Draw_View_StartInteraction;
+        GraphicsView.MoveHoverInteraction += Draw_View_MoveHoverInteraction;
+        GraphicsView.EndInteraction += Draw_View_EndInteraction;
     }
-    private void View_StartInteraction(object? sender, TouchEventArgs e)
+    private void Draw_View_StartInteraction(object? sender, TouchEventArgs e)
     {
         if (drawing || Root.Mode != DrawingMode.Draw)
         {
@@ -38,7 +38,7 @@ public partial class DrawingBatchViewModel
         }
         drawing = true;
     }
-    private void View_EndInteraction(object? sender, TouchEventArgs e)
+    private void Draw_View_EndInteraction(object? sender, TouchEventArgs e)
     {
         if (drawing)
         {
@@ -68,7 +68,7 @@ public partial class DrawingBatchViewModel
             }
         }
     }
-    private void View_MoveHoverInteraction(object? sender, TouchEventArgs e)
+    private void Draw_View_MoveHoverInteraction(object? sender, TouchEventArgs e)
     {
         if (drawing)
         {
