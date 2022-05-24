@@ -20,6 +20,7 @@ public partial class DrawingBatchViewModel
         if (drawable.HoveringDrawing is not null)
         {
             drawable.Erase(drawable.HoveringDrawing);
+            drawable.HoveringDrawing.Dispose();
             GraphicsView.Invalidate();
         }
     }
