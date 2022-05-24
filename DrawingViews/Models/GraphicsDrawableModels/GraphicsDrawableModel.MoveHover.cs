@@ -11,11 +11,11 @@ public partial class GraphicsDrawableModel : IDrawable
     private void InitMoveHoverInternal()
     {
         moveHover_resetEvent = new AutoResetEvent(false);
-        GraphicsView.MoveHoverInteraction += GraphicsView_MoveHoverInteraction;
-        moveHover_thread = new Thread(Thread_MoveHoverLoop) { IsBackground = true };
+        GraphicsView.MoveHoverInteraction += MoveHoverInteractionInternal;
+        moveHover_thread = new Thread(HandleMoveHoverLoopInternal) { IsBackground = true };
         moveHover_thread.Start();
     }
-    private void Thread_MoveHoverLoop()
+    private void HandleMoveHoverLoopInternal()
     {
         while (true)
         {
@@ -53,7 +53,7 @@ public partial class GraphicsDrawableModel : IDrawable
             }
         }
     }
-    private void GraphicsView_MoveHoverInteraction(object? sender, TouchEventArgs e)
+    private void MoveHoverInteractionInternal(object? sender, TouchEventArgs e)
     {
         lock(mutex)
         {
