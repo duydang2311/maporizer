@@ -130,7 +130,7 @@ public class PolygonModel : DrawingBaseModel
     }
     public override void Scale(float scale)
     {
-        _path = _path.AsScaledPath(scale);
+        _path.Transform(new System.Numerics.Matrix3x2(scale, 0, 0, scale, 0, 0));
         StrokeWidth *= scale;
     }
     public bool TryClip(PolygonModel drawing)
