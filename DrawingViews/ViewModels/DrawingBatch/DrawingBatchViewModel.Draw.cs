@@ -1,10 +1,10 @@
 ﻿using Maporizer.DrawingToolBarViews.Models;
-using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 using Maporizer.Helpers;
+using Maporizer.DrawingViews.Models;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
-using Maporizer.DrawingViews.Models;
+using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
 public partial class DrawingBatchViewModel
 {
@@ -55,7 +55,7 @@ public partial class DrawingBatchViewModel
 
                     if (!success)
                     {
-                        (GraphicsView.Drawable as GraphicsDrawableModel)!.Remove(PolygonBatch);
+                        (GraphicsView.Drawable as IDrawable)!.Erase(PolygonBatch);
                         PolygonBatch.Path.Dispose();
                         PolygonBatch = null;
                         GraphicsView.Invalidate();

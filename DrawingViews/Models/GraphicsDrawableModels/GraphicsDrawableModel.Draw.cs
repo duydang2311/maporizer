@@ -2,13 +2,6 @@
 
 public partial class GraphicsDrawableModel : IDrawable
 {
-    public void Remove(IDrawableShape drawing)
-    {
-        lock (Drawings)
-        {
-            Drawings.Remove(drawing);
-        }
-    }
     public void Draw(IDrawableShape drawing)
     {
         lock (Drawings)
