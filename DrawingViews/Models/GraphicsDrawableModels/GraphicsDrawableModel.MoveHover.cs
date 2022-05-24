@@ -7,7 +7,16 @@ public partial class GraphicsDrawableModel : IDrawable
     private Point moveHover_touchPoint;
     private IDrawableShape? moveHover_drawing;
     private readonly object mutex = new();
+    private bool running = true;
     public IDrawableShape? HoveringDrawing { get => moveHover_drawing; }
+    public void PauseHovering()
+    {
+        running = false;
+    }
+    public void ResumeHovering()
+    {
+        running = true;
+    }
     private void InitMoveHoverInternal()
     {
         moveHover_resetEvent = new AutoResetEvent(false);
@@ -19,6 +28,10 @@ public partial class GraphicsDrawableModel : IDrawable
     {
         while (true)
         {
+            if (!running)
+            {
+                continue;
+            }
             moveHover_resetEvent.WaitOne();
             lock (mutex)
             lock (Drawings)

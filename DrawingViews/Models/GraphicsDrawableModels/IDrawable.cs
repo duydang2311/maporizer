@@ -7,4 +7,6 @@ public interface IDrawable : Microsoft.Maui.Graphics.IDrawable
     IDrawableShape? HoveringDrawing { get; }
     void Erase(IDrawableShape drawing);
     void Draw(IDrawableShape drawing);
+    void PauseHovering();
+    void ResumeHovering();
 }
