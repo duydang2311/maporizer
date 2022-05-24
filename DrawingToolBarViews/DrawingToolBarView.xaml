@@ -32,9 +32,8 @@
                         IsOpaque="True"
                         BackgroundColor="Transparent"
                         HorizontalOptions="Center"
-                        Scale="0.8"
                         VerticalOptions="Center"
-                        HeightRequest="50"
+                        HeightRequest="30"
                         WidthRequest="80" />
                 </ViewCell>
             </DataTemplate>
