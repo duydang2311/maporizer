@@ -12,7 +12,7 @@ public partial class DrawingBatchViewModel
     }
     private void Erase_View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (Root.Mode != DrawingMode.Erase)
+        if (Mode != DrawingMode.Erase)
         {
             return;
         }

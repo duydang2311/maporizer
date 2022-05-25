@@ -17,7 +17,7 @@ public partial class DrawingBatchViewModel
     }
     private void Move_View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (Root.Mode != DrawingMode.Move)
+        if (Mode != DrawingMode.Move)
         {
             return;
         }
@@ -35,7 +35,7 @@ public partial class DrawingBatchViewModel
     }
     private void Move_View_MoveHoverInteraction(object? sender, TouchEventArgs e)
     {
-        if (Root.Mode != DrawingMode.Move || movingDrawing is null)
+        if (Mode != DrawingMode.Move || movingDrawing is null)
         {
             return;
         }

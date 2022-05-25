@@ -20,7 +20,7 @@ public partial class DrawingBatchViewModel
     }
     private void Draw_View_StartInteraction(object? sender, TouchEventArgs e)
     {
-        if (drawing || Root.Mode != DrawingMode.Draw)
+        if (drawing || Mode != DrawingMode.Draw)
         {
             return;
         }

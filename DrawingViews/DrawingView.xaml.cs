@@ -23,7 +23,7 @@ public partial class DrawingView : IDrawingView
                 Slider.Value = 100;
             });
         });
-        new DrawingBatchViewModel(this);
+        new DrawingBatchViewModel(_GraphicsView);
         ToolBarVM_InitInternal();
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
