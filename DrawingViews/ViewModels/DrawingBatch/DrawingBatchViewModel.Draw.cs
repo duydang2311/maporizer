@@ -90,6 +90,8 @@ public partial class DrawingBatchViewModel
                 {
                     if(!clippingDrawable.HasPointIn(point))
                     {
+                        // bad practice but ehh
+                        Draw_View_EndInteraction(null, new TouchEventArgs());
                         return;
                     }
                     var intersect = clippingDrawable.GetIntersectionPoint(point, (float)Math.Pow((clippingDrawable as PolygonModel)!.StrokeWidth, 3));
