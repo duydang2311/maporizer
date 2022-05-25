@@ -30,6 +30,7 @@ public partial class GraphicsDrawableModel : IDrawable
         moveHover_thread = null!;
         moveHover_resetEvent = null!;
         InitMoveHoverInternal();
+        InitThemeInternal();
     }
 }
 
