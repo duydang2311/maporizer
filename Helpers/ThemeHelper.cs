@@ -6,7 +6,7 @@ public static class ThemeHelper
     {
         return ImageSource.FromFile
         (
-            App.Current!.PlatformAppTheme != AppTheme.Dark
+            App.Current!.RequestedTheme != AppTheme.Dark
             ? path + "_light.png"
             : path + "_dark.png"
         );
