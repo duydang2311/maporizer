@@ -13,7 +13,6 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
 
     public ToolBarItemViewModel[] Items { get; }
     public event PropertyChangedEventHandler? PropertyChanged;
-    public event Action<DrawingMode>? ItemSelected;
     public ToolBarItemViewModel SelectedItem
     {
         get => selectedItem;
@@ -25,10 +24,6 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
                 if (PropertyChanged is not null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
-                }
-                if (ItemSelected is not null)
-                {
-                    ItemSelected(selectedItem.Mode);
                 }
                 MessagingCenter.Send(this, "DrawingModeChanged", selectedItem.Mode);
             }

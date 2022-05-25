@@ -5,7 +5,7 @@ using Maporizer.DrawingToolBarViews.Models;
 
 namespace Maporizer.DrawingViews;
 
-public partial class DrawingView : IDrawingView
+public partial class DrawingView
 {
     // Yet another shitty workaround to implement IDrawingView
     // Because the actual graphics view property is not available until code-gen
@@ -24,7 +24,6 @@ public partial class DrawingView : IDrawingView
             });
         });
         new DrawingBatchViewModel(_GraphicsView);
-        ToolBarVM_InitInternal();
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
