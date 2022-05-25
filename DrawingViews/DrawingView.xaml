@@ -7,7 +7,6 @@
 
     <ContentView.Resources>
         <Style x:Key="DrawingView_BoldLabel" TargetType="Label">
-            <Setter Property="TextColor" Value="{StaticResource White}" />
             <Setter Property="FontAttributes" Value="Bold" />
             <Setter Property="FontFamily" Value="InterBold"/>
             <Setter Property="FontSize" Value="16" />
