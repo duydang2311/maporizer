@@ -13,7 +13,7 @@ public static class ThemeHelper
     }
     public static T GetThemeBasedValue<T>(T light, T dark)
     {
-        return App.Current!.RequestedTheme != AppTheme.Light
+        return App.Current!.RequestedTheme != AppTheme.Dark
             ? light
             : dark;
     }
