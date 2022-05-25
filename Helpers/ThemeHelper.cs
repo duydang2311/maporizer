@@ -11,4 +11,10 @@ public static class ThemeHelper
             : path + "_dark.png"
         );
     }
+    public static T GetThemeBasedValue<T>(T light, T dark)
+    {
+        return App.Current!.RequestedTheme != AppTheme.Light
+            ? light
+            : dark;
+    }
 }
