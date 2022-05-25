@@ -30,6 +30,7 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
                 {
                     ItemSelected(selectedItem.Mode);
                 }
+                MessagingCenter.Send(this, "DrawingModeChanged", selectedItem.Mode);
             }
         }
     }
