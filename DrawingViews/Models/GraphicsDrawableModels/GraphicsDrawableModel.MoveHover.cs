@@ -1,4 +1,6 @@
-﻿namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
+﻿using Maporizer.Helpers;
+
+namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
 public partial class GraphicsDrawableModel : IDrawable
 {
@@ -58,7 +60,7 @@ public partial class GraphicsDrawableModel : IDrawable
                         }
                         if (collided is not null)
                         {
-                            collided.FillColor = Colors.ForestGreen;
+                            collided.FillColor = ThemeHelper.GetThemeBasedValue((Color)App.Current.Resources["Primary"], (Color)App.Current.Resources["Secondary"]);
                         }
                         GraphicsView.Invalidate();
                     });

@@ -75,7 +75,7 @@ public partial class DrawingBatchViewModel
             var drawable = (GraphicsDrawableModel)GraphicsView.Drawable;
             if (PolygonBatch is null)
             {
-                PolygonBatch = new PolygonModel { StrokeColor = Colors.White };
+                PolygonBatch = new PolygonModel { StrokeColor = ThemeHelper.GetThemeBasedValue((Color)App.Current!.Resources["Black"], (Color)App.Current!.Resources["White"]) };
                 PolygonBatch.Scale(drawable.ScaleFactor);
                 drawable.Draw(PolygonBatch);
                 if (clippingDrawable is not null)
