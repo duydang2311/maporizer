@@ -46,7 +46,16 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
             eraseItem
         };
         selectedItem = moveItem;
+        App.Current!.RequestedThemeChanged += App_RequestedThemeChanged;
     }
+
+    private void App_RequestedThemeChanged(object? sender, AppThemeChangedEventArgs e)
+    {
+        moveItem.Source = ThemeHelper.GetImageSource("cursor");
+        drawItem.Source = ThemeHelper.GetImageSource("draw");
+        eraseItem.Source = ThemeHelper.GetImageSource("erase");
+    }
+
     private void DrawItemCommand()
     {
     }
