@@ -25,7 +25,7 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
                 }
-                MessagingCenter.Send(this, "DrawingModeChanged", selectedItem.Mode);
+                MessagingCenter.Send(this, "ItemSelected", selectedItem);
             }
         }
     }

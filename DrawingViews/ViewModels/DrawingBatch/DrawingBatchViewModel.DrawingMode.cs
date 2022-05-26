@@ -1,6 +1,7 @@
-﻿using Maporizer.DrawingViews.Models;
+﻿using CommunityToolkit.Maui.Views;
 using Maporizer.DrawingToolBarViews.Models;
 using Maporizer.DrawingToolBarViews.ViewModels;
+using Maporizer.ColorizerPopupViews;
 
 namespace Maporizer.DrawingViews.ViewModels.DrawingBatch;
 
@@ -10,10 +11,10 @@ public partial class DrawingBatchViewModel
     private void InitDrawingModeInternal()
     {
         Mode = DrawingMode.None;
-        MessagingCenter.Subscribe<DrawingToolBarViewModel, DrawingMode>(this, "DrawingModeChanged", DrawingModeChanged);
+        MessagingCenter.Subscribe<DrawingToolBarViewModel, ToolBarItemViewModel>(this, "ItemSelected", OnItemSelected);
     }
-    private void DrawingModeChanged(DrawingToolBarViewModel sender, DrawingMode mode)
+    private void OnItemSelected(DrawingToolBarViewModel _, ToolBarItemViewModel item)
     {
-        Mode = mode;
+        Mode = item.Mode;
     }
 }
