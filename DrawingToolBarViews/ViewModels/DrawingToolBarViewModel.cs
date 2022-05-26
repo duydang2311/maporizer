@@ -10,6 +10,7 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
     private readonly ToolBarItemViewModel moveItem;
     private readonly ToolBarItemViewModel drawItem;
     private readonly ToolBarItemViewModel eraseItem;
+    private readonly ToolBarItemViewModel colorizeItem;
 
     public ToolBarItemViewModel[] Items { get; }
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -35,11 +36,13 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
         moveItem = new(ThemeHelper.GetImageSource("cursor"), DrawingMode.Move);
         drawItem = new(ThemeHelper.GetImageSource("draw"), DrawingMode.Draw);
         eraseItem = new(ThemeHelper.GetImageSource("erase"), DrawingMode.Erase);
+        colorizeItem = new(ThemeHelper.GetImageSource("colorize"), DrawingMode.Colorize);
         Items = new ToolBarItemViewModel[]
         {
             moveItem,
             drawItem,
-            eraseItem
+            eraseItem,
+            colorizeItem
         };
         selectedItem = moveItem;
         App.Current!.RequestedThemeChanged += App_RequestedThemeChanged;
@@ -50,5 +53,6 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
         moveItem.Source = ThemeHelper.GetImageSource("cursor");
         drawItem.Source = ThemeHelper.GetImageSource("draw");
         eraseItem.Source = ThemeHelper.GetImageSource("erase");
+        colorizeItem.Source = ThemeHelper.GetImageSource("colorize");
     }
 }

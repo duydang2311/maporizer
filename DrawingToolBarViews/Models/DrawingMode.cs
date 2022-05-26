@@ -5,5 +5,6 @@ public enum DrawingMode : byte
     None,
     Draw,
     Move,
-    Erase
+    Erase,
+    Colorize
 }
