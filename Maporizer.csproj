@@ -46,6 +46,8 @@
 		<MauiImage Update="Resources\Images\cursor_dark.svg" TintColor="White" />
 		<MauiImage Update="Resources\Images\erase_light.svg" TintColor="Black" />
 		<MauiImage Update="Resources\Images\erase_dark.svg" TintColor="White" />
+		<MauiImage Update="Resources\Images\colorize_light.svg" TintColor="Black" />
+		<MauiImage Update="Resources\Images\colorize_dark.svg" TintColor="White" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -59,12 +61,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ColorizerPromptPopup\ColorizerPromptPopup.xaml.cs">
+	    <DependentUpon>ColorizerPromptPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DrawingView.xaml.cs">
 	    <DependentUpon>DrawingView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ColorizerPromptPopup\ColorizerPromptPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="DrawingToolBarViews\DrawingToolBarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
