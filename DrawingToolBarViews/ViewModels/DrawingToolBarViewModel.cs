@@ -32,9 +32,9 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
 
     public DrawingToolBarViewModel()
     {
-        moveItem = new(ThemeHelper.GetImageSource("cursor"), MoveItemCommand, DrawingMode.Move);
-        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawItemCommand, DrawingMode.Draw);
-        eraseItem = new(ThemeHelper.GetImageSource("erase"), EraseItemCommand, DrawingMode.Erase);
+        moveItem = new(ThemeHelper.GetImageSource("cursor"), DrawingMode.Move);
+        drawItem = new(ThemeHelper.GetImageSource("draw"), DrawingMode.Draw);
+        eraseItem = new(ThemeHelper.GetImageSource("erase"), DrawingMode.Erase);
         Items = new ToolBarItemViewModel[]
         {
             moveItem,
@@ -50,15 +50,5 @@ public class DrawingToolBarViewModel : INotifyPropertyChanged
         moveItem.Source = ThemeHelper.GetImageSource("cursor");
         drawItem.Source = ThemeHelper.GetImageSource("draw");
         eraseItem.Source = ThemeHelper.GetImageSource("erase");
-    }
-
-    private void DrawItemCommand()
-    {
-    }
-    private void MoveItemCommand()
-    {
-    }
-    private void EraseItemCommand()
-    {
     }
 }
