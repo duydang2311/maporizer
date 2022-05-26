@@ -6,7 +6,7 @@
              xmlns:drawingview="clr-namespace:Maporizer.DrawingViews"
              x:Class="Maporizer.MainPages.MainPage"
              Title="maporizer">
-    <ContentPage.MenuBarItems>
+    <!--<ContentPage.MenuBarItems>
         <MenuBarItem Text="File">
             <MenuFlyoutItem Text="Exit" />
         </MenuBarItem>
@@ -22,7 +22,7 @@
             <MenuFlyoutItem Text="Refresh" />
             <MenuFlyoutItem Text="Change Theme" />
         </MenuBarItem>
-    </ContentPage.MenuBarItems>
+    </ContentPage.MenuBarItems>-->
     <Grid Padding="10, 5, 10, 10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
