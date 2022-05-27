@@ -3,14 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:menubarvm="clr-namespace:Maporizer.MainPages.ViewModels.MenuBar"
              xmlns:drawingview="clr-namespace:Maporizer.DrawingViews"
              x:Class="Maporizer.MainPages.MainPage"
-             Title="maporizer">
+             Title="maporizer"
+             x:Name="this">
+    <ContentPage.BindingContext>
+        <menubarvm:MenuBarViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="File">
-            <MenuFlyoutItem Text="New" />
-            <MenuFlyoutItem Text="Import" />
-            <MenuFlyoutItem Text="Export" />
+            <MenuFlyoutItem
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                x:DataType="menubarvm:MenuBarViewModel"
+                Text="New"
+                Command="{Binding NewCommand, Mode=OneTime}"
+            />
+            <MenuFlyoutItem
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                x:DataType="menubarvm:MenuBarViewModel"
+                Text="Import"
+                Command="{Binding ImportCommand, Mode=OneTime}"
+            />
+            <MenuFlyoutItem
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                x:DataType="menubarvm:MenuBarViewModel"
+                Text="Export"
+                Command="{Binding ExportCommand, Mode=OneTime}"
+            />
         </MenuBarItem>
     </ContentPage.MenuBarItems>
     <Grid Padding="10, 5, 10, 10" RowSpacing="10">
