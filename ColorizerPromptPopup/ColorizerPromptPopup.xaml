@@ -2,7 +2,11 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:Maporizer.ColorizerPopupViews.ViewModels"
              x:Class="Maporizer.ColorizerPopupViews.ColorizerPromptPopup">
+    <toolkit:Popup.BindingContext>
+        <vm:PromptViewModel />
+    </toolkit:Popup.BindingContext>
     <Grid
         BackgroundColor="{AppThemeBinding Default={StaticResource White}, Dark={StaticResource Black}}"
         Padding="20"
@@ -14,7 +18,7 @@
         </Grid.RowDefinitions>
         <Picker
             Grid.Row="0"
-            Title="Chọn thuật toán tô màu"
+            Title="Choose a colorizing algorithm"
             SelectedIndex="1">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
@@ -25,7 +29,7 @@
             </Picker.ItemsSource>
         </Picker>
         <VerticalStackLayout Grid.Row="1" Spacing="10">
-            <Label Text="Số lượng màu tối đa"></Label>
+            <Label Text="Specify the maximum number of colors"></Label>
             <Entry Placeholder="3..."></Entry>
         </VerticalStackLayout>
         <HorizontalStackLayout
@@ -33,8 +37,14 @@
             Spacing="10"
             HorizontalOptions="End"
             VerticalOptions="End">
-            <Button Text="OK"></Button>
-            <Button Text="Cancel"></Button>
+            <Button
+                Text="OK"
+                Command="{Binding OKCommand, Mode=OneTime}"
+            />
+            <Button
+                Text="Cancel"
+                Command="{Binding CancelCommand, Mode=OneTime}"
+            />
         </HorizontalStackLayout>
     </Grid>
 </toolkit:Popup>
