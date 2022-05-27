@@ -1,6 +1,4 @@
-﻿using Maporizer.ColorizerPopupViews;
-
-namespace Maporizer.ColorizerPopupViews.ViewModels;
+﻿namespace Maporizer.ColorizerPrompts.ViewModels;
 
 public class PromptViewModel
 {

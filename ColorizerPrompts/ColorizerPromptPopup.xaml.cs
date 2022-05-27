@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui.Views;
 
-namespace Maporizer.ColorizerPopupViews;
+namespace Maporizer.ColorizerPrompts;
 
 public partial class ColorizerPromptPopup : Popup
 {
