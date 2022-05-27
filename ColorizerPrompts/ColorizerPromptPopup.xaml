@@ -19,7 +19,8 @@
         <Picker
             Grid.Row="0"
             Title="Choose a colorizing algorithm"
-            SelectedIndex="1">
+            SelectedIndex="1"
+            SelectedItem="{Binding Picked}">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Brute-force</x:String>
@@ -30,7 +31,10 @@
         </Picker>
         <VerticalStackLayout Grid.Row="1" Spacing="10">
             <Label Text="Specify the maximum number of colors"></Label>
-            <Entry Placeholder="3..."></Entry>
+            <Entry
+                Placeholder="3..."
+                Text="{Binding Entry}"
+            />
         </VerticalStackLayout>
         <HorizontalStackLayout
             Grid.Row="2"
