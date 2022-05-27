@@ -6,31 +6,18 @@
              xmlns:drawingview="clr-namespace:Maporizer.DrawingViews"
              x:Class="Maporizer.MainPages.MainPage"
              Title="maporizer">
-    <!--<ContentPage.MenuBarItems>
+    <ContentPage.MenuBarItems>
         <MenuBarItem Text="File">
-            <MenuFlyoutItem Text="Exit" />
+            <MenuFlyoutItem Text="New" />
+            <MenuFlyoutItem Text="Import" />
+            <MenuFlyoutItem Text="Export" />
         </MenuBarItem>
-        <MenuBarItem Text="Locations">
-            <MenuFlyoutSubItem Text="Change Location">
-                <MenuFlyoutItem Text="Redmond, USA" />
-                <MenuFlyoutItem Text="London, UK" />
-                <MenuFlyoutItem Text="Berlin, DE" />
-            </MenuFlyoutSubItem>
-            <MenuFlyoutItem Text="Add Location" />
-        </MenuBarItem>
-        <MenuBarItem Text="View">
-            <MenuFlyoutItem Text="Refresh" />
-            <MenuFlyoutItem Text="Change Theme" />
-        </MenuBarItem>
-    </ContentPage.MenuBarItems>-->
+    </ContentPage.MenuBarItems>
     <Grid Padding="10, 5, 10, 10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
 
         <drawingview:DrawingView Grid.Row="1"/>
     </Grid>
