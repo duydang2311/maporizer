@@ -1,9 +1,11 @@
-﻿namespace Maporizer.ColorizerPrompts.ViewModels;
+﻿using System.Windows.Input;
+
+namespace Maporizer.ColorizerPrompts.ViewModels;
 
 public class PromptViewModel
 {
-    public Command OKCommand { get; }
-    public Command CancelCommand { get; }
+    public ICommand OKCommand { get; }
+    public ICommand CancelCommand { get; }
     public string picked;
     public string entry;
     public string Picked
@@ -14,7 +16,7 @@ public class PromptViewModel
             if (picked != value)
             {
                 picked = value;
-                OKCommand.ChangeCanExecute();
+                (OKCommand as Command)!.ChangeCanExecute();
             }
         }
     }
@@ -26,7 +28,7 @@ public class PromptViewModel
             if (entry != value)
             {
                 entry = value;
-                OKCommand.ChangeCanExecute();
+                (OKCommand as Command)!.ChangeCanExecute();
             }
         }
     }
