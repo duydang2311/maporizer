@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using Maporizer.DrawingToolBarViews.ViewModels;
-using Maporizer.ColorizerPopupViews;
+using Maporizer.ColorizerPrompts;
 
 namespace Maporizer.MainPages.ViewModels.Colorizer;
 
