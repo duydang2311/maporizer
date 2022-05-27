@@ -59,7 +59,7 @@ public partial class GraphicsDrawableModel : IDrawable
                         }
                         if (collided is not null)
                         {
-                            collided.FillColor = ThemeHelper.GetThemeBasedValue((Color)App.Current.Resources["Primary"], (Color)App.Current.Resources["Secondary"]);
+                            collided.FillColor = ThemeHelper.GetThemeBasedValue((Color)App.Current!.Resources["Primary"], (Color)App.Current.Resources["Secondary"]);
                         }
                         GraphicsView.Invalidate();
                     });
