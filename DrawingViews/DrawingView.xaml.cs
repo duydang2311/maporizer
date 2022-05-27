@@ -18,7 +18,7 @@ public partial class DrawingView
         Task.Run(() =>
         {
             Thread.Sleep(0);
-            App.Current!.Dispatcher.Dispatch(() =>
+            Dispatcher.Dispatch(() =>
             {
                 Slider.Value = 100;
             });

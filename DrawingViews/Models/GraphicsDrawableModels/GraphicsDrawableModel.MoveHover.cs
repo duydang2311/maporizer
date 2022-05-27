@@ -49,10 +49,9 @@ public partial class GraphicsDrawableModel : IDrawable
                 }
                 if (collided != moveHover_drawing)
                 {
-                    var dispatcher = App.Current!.Dispatcher;
                     var reset = moveHover_drawing;
                     moveHover_drawing = collided;
-                    dispatcher.Dispatch(() =>
+                    GraphicsView.Dispatcher.Dispatch(() =>
                     {
                         if (reset is not null)
                         {
