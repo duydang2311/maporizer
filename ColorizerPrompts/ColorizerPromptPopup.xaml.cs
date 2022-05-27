@@ -7,5 +7,7 @@ public partial class ColorizerPromptPopup : Popup
 	public ColorizerPromptPopup()
 	{
 		InitializeComponent();
+		InitOKInternal();
+		InitCancelInternal();
 	}
 }
