@@ -1,12 +1,13 @@
 ﻿using _FileSavePicker = Windows.Storage.Pickers.FileSavePicker;
 using Windows.Storage.Pickers;
+using Windows.Storage;
 using Maporizer.FileSavePickers;
 
 namespace Maporizer.Platforms.Windows;
 
 public class FileSavePicker : IFileSavePicker
 {
-    public async Task<string> PickAsync()
+    public async Task<string?> PickAsync()
     {
         var savePicker = new _FileSavePicker
         {
@@ -19,6 +20,6 @@ public class FileSavePicker : IFileSavePicker
 
         WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
         var result = await savePicker.PickSaveFileAsync();
-        return result.Path;
+        return result?.Path;
     }
 }

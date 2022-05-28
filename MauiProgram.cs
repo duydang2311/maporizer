@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using Maporizer.FileSavePickers;
-using Maporizer.MainPages.ViewModels.MenuBar;
-using Maporizer.MainPages;
 
 namespace Maporizer;
 

@@ -2,5 +2,5 @@
 
 public interface IFileSavePicker
 {
-    Task<string> PickAsync();
+    Task<string?> PickAsync();
 }
