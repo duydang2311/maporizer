@@ -12,6 +12,20 @@ public partial class MenuBarViewModel
     }
     private async void ImportCommandHandler()
     {
-        var path = await MauiProgram.ServiceProvider.GetService<IFileSavePicker>()!.PickAsync();
+        var fileType = new FilePickerFileType(
+            new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.WinUI, new [] { ".mapo" } },
+                { DevicePlatform.Android, new [] { ".mapo" } },
+                { DevicePlatform.iOS, new [] { ".mapo" } },
+                { DevicePlatform.macOS, new [] { ".mapo" } },
+                { DevicePlatform.MacCatalyst, new [] { ".mapo" } },
+            });
+        var path = await FilePicker.Default.PickAsync(new PickOptions
+        {
+            PickerTitle = "Select a map to import",
+            FileTypes = fileType,
+        });
+        MessagingCenter.Send(this, "Import", path);
     }
 }
