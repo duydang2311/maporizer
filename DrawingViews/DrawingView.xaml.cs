@@ -1,5 +1,6 @@
 using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 using Maporizer.DrawingViews.ViewModels.DrawingBatch;
+using Maporizer.DrawingViews.ViewModels;
 using Maporizer.DrawingToolBarViews.ViewModels;
 using Maporizer.DrawingToolBarViews.Models;
 
@@ -23,7 +24,8 @@ public partial class DrawingView
                 Slider.Value = 100;
             });
         });
-        new DrawingBatchViewModel(_GraphicsView);
+        _ = new DrawingBatchViewModel(_GraphicsView);
+        _ = new ExportViewModel(this);
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {
