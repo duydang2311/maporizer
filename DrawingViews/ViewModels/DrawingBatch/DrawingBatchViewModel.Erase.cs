@@ -16,7 +16,7 @@ public partial class DrawingBatchViewModel
         {
             return;
         }
-        var drawable = (IDrawable)GraphicsView.Drawable;
+        var drawable = (IGraphicsDrawable)GraphicsView.Drawable;
         if (drawable.HoveringDrawing is not null)
         {
             drawable.Erase(drawable.HoveringDrawing);

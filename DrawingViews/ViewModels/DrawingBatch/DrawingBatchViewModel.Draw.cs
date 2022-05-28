@@ -55,7 +55,7 @@ public partial class DrawingBatchViewModel
 
                     if (!success)
                     {
-                        (GraphicsView.Drawable as IDrawable)!.Erase(PolygonBatch);
+                        (GraphicsView.Drawable as IGraphicsDrawable)!.Erase(PolygonBatch);
                         PolygonBatch.Path.Dispose();
                         PolygonBatch = null;
                         GraphicsView.Invalidate();

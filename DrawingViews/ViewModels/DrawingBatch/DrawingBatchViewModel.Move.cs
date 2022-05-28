@@ -23,7 +23,7 @@ public partial class DrawingBatchViewModel
         }
         if (movingDrawing is null)
         {
-            var drawable = (IDrawable)GraphicsView.Drawable;
+            var drawable = (IGraphicsDrawable)GraphicsView.Drawable;
             var drawing = drawable.HoveringDrawing;
             if (drawing is not null)
             {
@@ -46,6 +46,6 @@ public partial class DrawingBatchViewModel
     private void Move_View_EndInteraction(object? sender, TouchEventArgs e)
     {
         movingDrawing = null;
-        ((IDrawable)GraphicsView.Drawable).ResumeHovering();
+        ((IGraphicsDrawable)GraphicsView.Drawable).ResumeHovering();
     }
 }
