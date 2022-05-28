@@ -39,6 +39,6 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <drawingview:DrawingView Grid.Row="1"/>
+        <drawingview:DrawingView x:Name="drawingView" Grid.Row="1"/>
     </Grid>
 </ContentPage>
