@@ -2,7 +2,7 @@
 
 namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
-public partial class GraphicsDrawableModel : IDrawable
+public partial class GraphicsDrawableModel : IGraphicsDrawable
 {
     private void InitThemeInternal()
     {

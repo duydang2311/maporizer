@@ -1,6 +1,6 @@
 ﻿namespace Maporizer.DrawingViews.Models.GraphicsDrawableModels;
 
-public interface IDrawable : Microsoft.Maui.Graphics.IDrawable
+public interface IGraphicsDrawable : IDrawable
 {
     LinkedList<IDrawableShape> Drawings { get; }
     GraphicsView GraphicsView { get; }
