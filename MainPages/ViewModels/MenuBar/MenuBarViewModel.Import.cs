@@ -12,6 +12,6 @@ public partial class MenuBarViewModel
     }
     private async void ImportCommandHandler()
     {
-        var result = await MauiProgram.ServiceProvider.GetService<IFileSavePicker>()!.PickAsync();
+        var path = await MauiProgram.ServiceProvider.GetService<IFileSavePicker>()!.PickAsync();
     }
 }
