@@ -39,13 +39,15 @@ public partial class GraphicsDrawableModel : IGraphicsDrawable
             lock (Drawings)
             {
                 IDrawableShape? collided = null;
-                foreach (IDrawableShape drawing in Drawings)
+                var last = Drawings.Last;
+                while(last is not null)
                 {
-                    if (!drawing.Ignored && drawing.HasPointIn(moveHover_touchPoint))
+                    if (!last.Value.Ignored && last.Value.HasPointIn(moveHover_touchPoint))
                     {
-                        collided = drawing;
+                        collided = last.Value;
                         break;
                     }
+                    last = last.Previous;
                 }
                 if (collided != moveHover_drawing)
                 {
