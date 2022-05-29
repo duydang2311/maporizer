@@ -6,7 +6,7 @@ public partial class GraphicsDrawableModel : IGraphicsDrawable
     {
         lock (Drawings)
         {
-            Drawings.AddFirst(drawing);
+            Drawings.AddLast(drawing);
         }
     }
     public void Draw(ICanvas canvas, RectF dirtyRect)
