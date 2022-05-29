@@ -1,6 +1,7 @@
 ﻿using Maporizer.MainPages.ViewModels.Colorizer;
 using Maporizer.MainPages.ViewModels.MenuBar;
 using Maporizer.DrawingViews;
+using Maporizer.ColorizerPrompts.Models;
 
 namespace Maporizer.MainPages;
 
@@ -14,6 +15,7 @@ public partial class MainPage : ContentPage
 		MessagingCenter.Subscribe<MenuBarViewModel, FileResult>(this, "Import", OnImport);
 		MessagingCenter.Subscribe<DrawingView, int>(this, "Exported", OnExported);
 		MessagingCenter.Subscribe<DrawingView, int>(this, "Imported", OnImported);
+		MessagingCenter.Subscribe<ColorizerPromptViewModel, PromptResultModel>(this, "Colorize", OnColorize);
 	}
 	private void OnExport(MenuBarViewModel sender, string path)
     {
@@ -30,6 +32,10 @@ public partial class MainPage : ContentPage
 	private async void OnImported(DrawingView sender, int drawings)
     {
 		await DisplayAlert("Export", $"Imported a map with {drawings} drawings", "OK");
+    }
+	private void OnColorize(ColorizerPromptViewModel sender, PromptResultModel model)
+    {
+        MessagingCenter.Send(this, "Colorize", model);
     }
 }
 
