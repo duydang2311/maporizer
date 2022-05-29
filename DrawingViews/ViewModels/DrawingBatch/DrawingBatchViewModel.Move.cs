@@ -21,16 +21,13 @@ public partial class DrawingBatchViewModel
         {
             return;
         }
-        if (movingDrawing is null)
+        var drawable = (IGraphicsDrawable)GraphicsView.Drawable;
+        var drawing = drawable.HoveringDrawing;
+        if (drawing is not null)
         {
-            var drawable = (IGraphicsDrawable)GraphicsView.Drawable;
-            var drawing = drawable.HoveringDrawing;
-            if (drawing is not null)
-            {
-                movingDrawing = drawing;
-                movingLastPoint = e.Touches[0];
-                drawable.PauseHovering();
-            }
+            movingDrawing = drawing;
+            movingLastPoint = e.Touches[0];
+            drawable.PauseHovering();
         }
     }
     private void Move_View_MoveHoverInteraction(object? sender, TouchEventArgs e)
@@ -45,6 +42,10 @@ public partial class DrawingBatchViewModel
     }
     private void Move_View_EndInteraction(object? sender, TouchEventArgs e)
     {
+        if (movingDrawing is null)
+        {
+            return;
+        }
         movingDrawing = null;
         ((IGraphicsDrawable)GraphicsView.Drawable).ResumeHovering();
     }
