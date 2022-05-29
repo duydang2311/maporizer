@@ -25,7 +25,7 @@ public class ImportViewModel
             int count = 0;
             lock (drawable.Drawings)
             {
-                foreach (PolygonModel i in drawings)
+                foreach (var i in drawings)
                 {
                     i.Dispose();
                 }

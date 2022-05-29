@@ -2,6 +2,7 @@
 
 public interface IDrawableShape : IDisposable
 {
+    PathF Path { get; }
     Color StrokeColor { get; set; }
     Color FillColor { get; set; }
     bool Ignored { get; set; }

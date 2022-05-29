@@ -4,12 +4,9 @@ namespace Maporizer.DrawingViews.Models;
 
 public class PolygonModel : DrawingBaseModel
 {
-    private PathF _path;
     public float StrokeWidth { get; set; }
-    public PathF Path { get => _path; private set => _path = value; }
     public PolygonModel() : base()
     {
-        _path = new PathF();
         StrokeWidth = 5f;
     }
     private (float, float, float, float)? GetCollidedLineWithInternal(PointF point, float? epsilon = null)
@@ -21,10 +18,10 @@ public class PolygonModel : DrawingBaseModel
         float dist1;
         float dist2;
         float totalDist;
-        float lastX = _path.LastPoint.X;
-        float lastY = _path.LastPoint.Y;
+        float lastX = Path.LastPoint.X;
+        float lastY = Path.LastPoint.Y;
         epsilon ??= StrokeWidth * StrokeWidth * 2;
-        foreach (var p in _path.Points)
+        foreach (var p in Path.Points)
         {
             dx = x0 - lastX;
             dy = y0 - lastY;
@@ -48,18 +45,18 @@ public class PolygonModel : DrawingBaseModel
     }
     public void Close()
     {
-        if (_path.Points.Count() > 2)
+        if (Path.Points.Count() > 2)
         {
-            _path.Close();
+            Path.Close();
         }
     }
     public void Open()
     {
-        _path.Open();
+        Path.Open();
     }
     public void Add(PointF point)
     {
-        _path.LineTo(point);
+        Path.LineTo(point);
     }
     public override void Draw(ICanvas canvas, RectF dirtyRect)
     {
@@ -67,12 +64,12 @@ public class PolygonModel : DrawingBaseModel
         if (FillColor != Colors.Transparent)
         {
             canvas.FillColor = FillColor;
-            canvas.FillPath(_path);
+            canvas.FillPath(Path);
         }
         if (StrokeColor != Colors.Transparent)
         {
             canvas.StrokeColor = StrokeColor;
-            canvas.DrawPath(_path);
+            canvas.DrawPath(Path);
         }
     }
     public void Simplify(float epsilon)
@@ -82,7 +79,7 @@ public class PolygonModel : DrawingBaseModel
         while(keepSimplifing)
         {
             keepSimplifing = false;
-            var points = _path.Points.ToArray();
+            var points = Path.Points.ToArray();
             var length = points.Length - 1;
             if (length < 2)
             {
@@ -98,7 +95,7 @@ public class PolygonModel : DrawingBaseModel
 
                 if (height * baseLength < epsilon)
                 {
-                    _path.RemoveSegment(segment--);
+                    Path.RemoveSegment(segment--);
                     keepSimplifing = true;
                 }
             }
@@ -110,7 +107,7 @@ public class PolygonModel : DrawingBaseModel
     }
     public override bool HasPointIn(PointF point)
     {
-        return GeometryHelper.IsPointInsidePath(_path, point);
+        return GeometryHelper.IsPointInsidePath(Path, point);
     }
     public override PointF? GetIntersectionPoint(PointF point, float? epsilon = null)
     {
@@ -130,20 +127,20 @@ public class PolygonModel : DrawingBaseModel
     }
     public override void Scale(float scale)
     {
-        _path.Transform(new System.Numerics.Matrix3x2(scale, 0, 0, scale, 0, 0));
+        Path.Transform(new System.Numerics.Matrix3x2(scale, 0, 0, scale, 0, 0));
         StrokeWidth *= scale;
     }
     public bool TryClip(PolygonModel drawing)
     {
-        var intersect1 = drawing.GetIntersectionPoint(_path.FirstPoint);
-        var intersect2 = drawing.GetIntersectionPoint(_path.LastPoint);
+        var intersect1 = drawing.GetIntersectionPoint(Path.FirstPoint);
+        var intersect2 = drawing.GetIntersectionPoint(Path.LastPoint);
         if (intersect1 is null || intersect2 is null)
         {
             return false;
         }
         var points = drawing.Path.Points.ToArray();
         var polygon = new List<PointF>();
-        var reverse = _path.Points.Reverse();
+        var reverse = Path.Points.Reverse();
         bool reversed = false;
         byte count = 0;
         int start = -1;
@@ -152,7 +149,7 @@ public class PolygonModel : DrawingBaseModel
         {
             if (count == 1)
             {
-                polygon.AddRange(reversed ? reverse : _path.Points);
+                polygon.AddRange(reversed ? reverse : Path.Points);
                 ++count;
                 continue;
             }
@@ -202,18 +199,18 @@ public class PolygonModel : DrawingBaseModel
         {
             polygon.Add(points[i]);
         }
-        polygon.AddRange(reversed ? _path.Points : reverse);
-        _path.Dispose();
-        _path = new PathF();
+        polygon.AddRange(reversed ? Path.Points : reverse);
+        Path.Dispose();
+        Path = new PathF();
         foreach (var i in polygon)
         {
-            _path.LineTo(i);
+            Path.LineTo(i);
         }
         return true;
     }
     public override void Translate(SizeF offset)
     {
-        _path.Move(offset.Width, offset.Height);
+        Path.Move(offset.Width, offset.Height);
     }
     protected override void Dispose(bool disposing)
     {
@@ -222,7 +219,7 @@ public class PolygonModel : DrawingBaseModel
             if (disposing)
             {
             }
-            _path.Dispose();
+            Path.Dispose();
             disposed = true;
         }
     }

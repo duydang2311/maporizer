@@ -22,7 +22,7 @@ public class ExportViewModel
             var drawings = new LinkedList<IDrawableShape>(drawable.Drawings);
             var count = drawings.Count;
             using var file = new StreamWriter(path, append: false);
-            foreach (PolygonModel i in drawings)
+            foreach (var i in drawings)
             {
                 foreach (var p in i.Path.Points)
                 {

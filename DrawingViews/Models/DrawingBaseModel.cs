@@ -3,12 +3,14 @@
 public abstract class DrawingBaseModel : IDrawableShape
 {
     protected bool disposed;
+    public PathF Path { get; protected set; }
 
     public Color StrokeColor { get; set; }
     public Color FillColor { get; set; }
     public bool Ignored { get; set; }
     public DrawingBaseModel()
     {
+        Path = new PathF();
         StrokeColor = Colors.Transparent;
         FillColor = Colors.Transparent;
         Ignored = false;
