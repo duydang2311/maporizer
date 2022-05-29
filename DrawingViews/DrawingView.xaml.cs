@@ -27,6 +27,7 @@ public partial class DrawingView
         _ = new DrawingBatchViewModel(_GraphicsView);
         _ = new ExportViewModel(this);
         _ = new ImportViewModel(this);
+        _ = new ColorizeViewModel(this);
 	}
     private void GraphicsView_MoveHoverInteraction(object sender, TouchEventArgs e)
     {

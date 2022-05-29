@@ -12,7 +12,6 @@ public class ExportViewModel
     {
         this.view = view;
         drawable = (IGraphicsDrawable)view.GraphicsView.Drawable;
-        System.Diagnostics.Debug.WriteLine("ExportViewModel subscribed");
         MessagingCenter.Subscribe<MainPage, string>(view, "Export", OnExport);
     }
     private void OnExport(MainPage sender, string path)
