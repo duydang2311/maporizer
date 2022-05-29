@@ -26,6 +26,10 @@ public partial class MenuBarViewModel
             PickerTitle = "Select a map to import",
             FileTypes = fileType,
         });
+        if (path is null)
+        {
+            return;
+        }
         MessagingCenter.Send(this, "Import", path);
     }
 }

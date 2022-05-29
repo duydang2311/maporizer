@@ -2,6 +2,7 @@
 using Maporizer.DrawingToolBarViews.ViewModels;
 using Maporizer.ColorizerPrompts;
 using Maporizer.ColorizerPrompts.Models;
+using Maporizer.Colorizers;
 
 namespace Maporizer.MainPages.ViewModels.Colorizer;
 
@@ -16,10 +17,12 @@ public partial class ColorizerPromptViewModel
         if (item.Mode == DrawingToolBarViews.Models.DrawingMode.Colorize)
         {
             var popup = new ColorizerPromptPopup();
-            if (await page.ShowPopupAsync(popup) is PromptResultModel result)
+            var result = await page.ShowPopupAsync(popup);
+            if (result is not PromptResultModel model)
             {
-                // TODO: colorize with result
+                return;
             }
+            MessagingCenter.Send(this, "Colorize", model);
         }
     }
 }
