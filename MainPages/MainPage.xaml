@@ -19,12 +19,44 @@
                 Text="New"
                 Command="{Binding NewCommand, Mode=OneTime}"
             />
-            <MenuFlyoutItem
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
-                x:DataType="menubarvm:MenuBarViewModel"
+            <MenuFlyoutSubItem
                 Text="Import"
-                Command="{Binding ImportCommand, Mode=OneTime}"
-            />
+            >
+                <MenuFlyoutItem
+                    BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                    x:DataType="menubarvm:MenuBarViewModel"
+                    Text="File"
+                    Command="{Binding ImportCommand, Mode=OneTime}"
+                />
+                <MenuFlyoutSubItem
+                    BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                    x:DataType="menubarvm:MenuBarViewModel"
+                    Text="Default"
+                >
+                    <MenuFlyoutItem
+                        Text="Normal map"
+                        BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                        x:DataType="menubarvm:MenuBarViewModel"
+                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        CommandParameter="Map.mapo"
+                    />
+                    <MenuFlyoutItem
+                        Text="Medium map"
+                        BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                        x:DataType="menubarvm:MenuBarViewModel"
+                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        CommandParameter="MediumMap.mapo"
+                    />
+                    <MenuFlyoutItem
+                        Text="Big map"
+                        BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
+                        x:DataType="menubarvm:MenuBarViewModel"
+                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        CommandParameter="BigMap.mapo"
+                    />
+                </MenuFlyoutSubItem>
+            </MenuFlyoutSubItem>
+
             <MenuFlyoutItem
                 BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
                 x:DataType="menubarvm:MenuBarViewModel"

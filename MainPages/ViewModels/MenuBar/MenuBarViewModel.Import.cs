@@ -6,9 +6,11 @@ namespace Maporizer.MainPages.ViewModels.MenuBar;
 public partial class MenuBarViewModel
 {
     public ICommand ImportCommand { get; private set; } = null!;
+    public ICommand ImportDefaultCommand { get; private set; } = null!;
     private void InitImportInternal()
     {
         ImportCommand = new Command(ImportCommandHandler);
+        ImportDefaultCommand = new Command<string>(ImportDefaultCommandHandler);
     }
     private async void ImportCommandHandler()
     {
@@ -21,10 +23,6 @@ public partial class MenuBarViewModel
                 { DevicePlatform.macOS, new [] { ".mapo" } },
                 { DevicePlatform.MacCatalyst, new [] { ".mapo" } },
             });
-        var file = await FileSystem.OpenAppPackageFileAsync("MediumMap.mapo");
-        var reader = new StreamReader(file);
-        while (reader.Read)
-        System.Diagnostics.Debug.WriteLine(file.Read);
         var path = await FilePicker.Default.PickAsync(new PickOptions
         {
             PickerTitle = "Select a map to import",
@@ -35,5 +33,15 @@ public partial class MenuBarViewModel
             return;
         }
         MessagingCenter.Send(this, "Import", path);
+    }
+    private async void ImportDefaultCommandHandler(string file)
+    {
+        var stream = await FileSystem.OpenAppPackageFileAsync(file);
+        if (stream is null)
+        {
+            return;
+        }
+        var reader = new StreamReader(stream);
+        MessagingCenter.Send(this, "Import", reader);
     }
 }
