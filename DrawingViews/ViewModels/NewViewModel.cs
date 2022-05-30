@@ -1,10 +1,5 @@
 ﻿using Maporizer.MainPages;
-using Maporizer.Helpers;
-using Maporizer.ColorizerPrompts.Models;
-using Maporizer.Colorizers;
 using Maporizer.DrawingViews.Models.GraphicsDrawableModels;
-using Maporizer.DrawingToolBarViews.ViewModels;
-using Maporizer.DrawingToolBarViews.Models;
 
 namespace Maporizer.DrawingViews.ViewModels;
 
@@ -21,5 +16,6 @@ public class NewViewModel
     private void OnNew(MainPage sender)
     {
         drawable.Clear();
+        view.GraphicsView.Invalidate();
     }
 }
