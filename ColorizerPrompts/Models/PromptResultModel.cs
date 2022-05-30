@@ -3,10 +3,10 @@
 public class PromptResultModel
 {
     public string Algorithm { get; }
-    public int Colors { get; }
-    public PromptResultModel(string algorithm, int colors)
+    public uint Delay { get; }
+    public PromptResultModel(string algorithm, uint delay)
     {
         Algorithm = algorithm;
-        Colors = colors;
+        Delay = delay;
     }
 }

@@ -41,7 +41,7 @@ public class PromptViewModel
     }
     private void OKCommandHandler()
     {
-        MessagingCenter.Send(this, "OK", new Models.PromptResultModel(Picked, byte.Parse(Entry)));
+        MessagingCenter.Send(this, "OK", new Models.PromptResultModel(Picked, uint.Parse(Entry)));
     }
     private void CancelCommandHandler()
     {
@@ -49,6 +49,6 @@ public class PromptViewModel
     }
     private bool OKCanExecuteHandler()
     {
-        return Picked.Length != 0 && byte.TryParse(Entry, out byte _);
+        return Picked.Length != 0 && uint.TryParse(Entry, out var _);
     }
 }

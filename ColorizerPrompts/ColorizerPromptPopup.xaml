@@ -30,9 +30,9 @@
             </Picker.ItemsSource>
         </Picker>
         <VerticalStackLayout Grid.Row="1" Spacing="10">
-            <Label Text="Specify the maximum number of colors"></Label>
+            <Label Text="Specify a delay interval (in ms) - lower is faster"></Label>
             <Entry
-                Placeholder="3..."
+                Placeholder="30"
                 Text="{Binding Entry}"
             />
         </VerticalStackLayout>
