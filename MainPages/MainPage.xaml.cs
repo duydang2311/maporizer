@@ -11,12 +11,17 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		_ = new ColorizerPromptViewModel(this);
+		MessagingCenter.Subscribe<MenuBarViewModel>(this, "New", OnNew);
 		MessagingCenter.Subscribe<MenuBarViewModel, string>(this, "Export", OnExport);
 		MessagingCenter.Subscribe<MenuBarViewModel, string>(this, "Import", OnImport);
 		MessagingCenter.Subscribe<DrawingView, int>(this, "Exported", OnExported);
 		MessagingCenter.Subscribe<DrawingView, int>(this, "Imported", OnImported);
 		MessagingCenter.Subscribe<ColorizerPromptViewModel, PromptResultModel>(this, "Colorize", OnColorize);
 	}
+	private void OnNew(MenuBarViewModel sender)
+    {
+		MessagingCenter.Send(this, "New");
+    }
 	private void OnExport(MenuBarViewModel sender, string path)
     {
 		MessagingCenter.Send(this, "Export", path);

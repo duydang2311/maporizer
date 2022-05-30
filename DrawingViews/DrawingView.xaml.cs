@@ -25,6 +25,7 @@ public partial class DrawingView
             });
         });
         _ = new DrawingBatchViewModel(_GraphicsView);
+        _ = new NewViewModel(this);
         _ = new ExportViewModel(this);
         _ = new ImportViewModel(this);
         _ = new ColorizeViewModel(this);

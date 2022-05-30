@@ -11,6 +11,6 @@ public partial class MenuBarViewModel
     }
     private void NewCommandHandler()
     {
-        System.Diagnostics.Debug.WriteLine("new");
+        MessagingCenter.Send(this, "New");
     }
 }
