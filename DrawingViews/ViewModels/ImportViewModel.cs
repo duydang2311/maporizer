@@ -32,11 +32,7 @@ public class ImportViewModel
             int count = 0;
             lock (drawable.Drawings)
             {
-                foreach (var i in drawings)
-                {
-                    i.Dispose();
-                }
-                drawable.Drawings.Clear();
+                drawable.Clear();
                 while(!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
