@@ -56,7 +56,7 @@ public class ImportViewModel
             }
             view.Dispatcher.Dispatch(() =>
             {
-                MessagingCenter.Send(view, "Imported", count);
+                MessagingCenter.Send(view, "Alert", $"Imported a map with {count} drawings");
                 view.GraphicsView.Invalidate();
             });
         });

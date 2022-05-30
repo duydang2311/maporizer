@@ -33,7 +33,7 @@ public class ExportViewModel
             file.Close();
             view.Dispatcher.Dispatch(() =>
             {
-                MessagingCenter.Send(view, "Exported", count);
+                MessagingCenter.Send(view, "Alert", $"Exported a map with {count} drawings");
             });
         });
     }

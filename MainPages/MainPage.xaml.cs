@@ -14,8 +14,7 @@ public partial class MainPage : ContentPage
 		MessagingCenter.Subscribe<MenuBarViewModel>(this, "New", OnNew);
 		MessagingCenter.Subscribe<MenuBarViewModel, string>(this, "Export", OnExport);
 		MessagingCenter.Subscribe<MenuBarViewModel, string>(this, "Import", OnImport);
-		MessagingCenter.Subscribe<DrawingView, int>(this, "Exported", OnExported);
-		MessagingCenter.Subscribe<DrawingView, int>(this, "Imported", OnImported);
+		MessagingCenter.Subscribe<DrawingView, string>(this, "Alert", OnAlert);
 		MessagingCenter.Subscribe<ColorizerPromptViewModel, PromptResultModel>(this, "Colorize", OnColorize);
 	}
 	private void OnNew(MenuBarViewModel sender)
@@ -26,17 +25,13 @@ public partial class MainPage : ContentPage
     {
 		MessagingCenter.Send(this, "Export", path);
     }
-	private async void OnExported(DrawingView sender, int drawings)
+	private async void OnAlert(DrawingView sender, string message)
     {
-		await DisplayAlert("Export", $"Your map with {drawings} drawings has been exported successfully", "OK");
+		await DisplayAlert("Export", message, "OK");
     }
 	private void OnImport(MenuBarViewModel sender, string path)
     {
 		MessagingCenter.Send(this, "Import", path);
-    }
-	private async void OnImported(DrawingView sender, int drawings)
-    {
-		await DisplayAlert("Export", $"Imported a map with {drawings} drawings", "OK");
     }
 	private void OnColorize(ColorizerPromptViewModel sender, PromptResultModel model)
     {
