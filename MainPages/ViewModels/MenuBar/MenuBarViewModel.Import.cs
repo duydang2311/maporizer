@@ -21,6 +21,10 @@ public partial class MenuBarViewModel
                 { DevicePlatform.macOS, new [] { ".mapo" } },
                 { DevicePlatform.MacCatalyst, new [] { ".mapo" } },
             });
+        var file = await FileSystem.OpenAppPackageFileAsync("MediumMap.mapo");
+        var reader = new StreamReader(file);
+        while (reader.Read)
+        System.Diagnostics.Debug.WriteLine(file.Read);
         var path = await FilePicker.Default.PickAsync(new PickOptions
         {
             PickerTitle = "Select a map to import",
