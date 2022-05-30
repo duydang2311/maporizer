@@ -37,21 +37,21 @@
                         Text="Normal map"
                         BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
                         x:DataType="menubarvm:MenuBarViewModel"
-                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        Command="{Binding ImportCommand, Mode=OneTime}"
                         CommandParameter="Map.mapo"
                     />
                     <MenuFlyoutItem
                         Text="Medium map"
                         BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
                         x:DataType="menubarvm:MenuBarViewModel"
-                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        Command="{Binding ImportCommand, Mode=OneTime}"
                         CommandParameter="MediumMap.mapo"
                     />
                     <MenuFlyoutItem
                         Text="Big map"
                         BindingContext="{Binding Path=BindingContext, Source={x:Reference this}}"
                         x:DataType="menubarvm:MenuBarViewModel"
-                        Command="{Binding ImportDefaultCommand, Mode=OneTime}"
+                        Command="{Binding ImportCommand, Mode=OneTime}"
                         CommandParameter="BigMap.mapo"
                     />
                 </MenuFlyoutSubItem>

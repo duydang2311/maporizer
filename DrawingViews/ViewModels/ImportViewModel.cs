@@ -13,14 +13,21 @@ public class ImportViewModel
     {
         this.view = view;
         drawable = (IGraphicsDrawable)view.GraphicsView.Drawable;
-        MessagingCenter.Subscribe<MainPage, FileResult>(view, "Import", OnImport);
+        MessagingCenter.Subscribe<MainPage, string>(view, "Import", OnImport);
     }
-    private void OnImport(MainPage sender, FileResult file)
+    private void OnImport(MainPage sender, string path)
     {
         var color = ThemeHelper.GetThemeBasedValue((Color)App.Current!.Resources["Black"], (Color)App.Current!.Resources["White"]);
-        Task.Run(() =>
+        Task.Run(async () =>
         {
-            using var reader = new StreamReader(file.FullPath);
+            using var reader = await FileSystem.AppPackageFileExistsAsync(path)
+                ? new StreamReader(await FileSystem.OpenAppPackageFileAsync(path))
+                : new StreamReader(path)
+            ;
+            if (reader is null)
+            {
+                return;
+            }
             var drawings = new LinkedList<IDrawableShape>(drawable.Drawings);
             int count = 0;
             lock (drawable.Drawings)
@@ -51,7 +58,6 @@ public class ImportViewModel
                     drawable.Draw(polygon);
                 }
             }
-            reader.Close();
             view.Dispatcher.Dispatch(() =>
             {
                 MessagingCenter.Send(view, "Imported", count);

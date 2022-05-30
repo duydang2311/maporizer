@@ -1,19 +1,21 @@
 ﻿using System.Windows.Input;
-using Maporizer.FileSavePickers;
 
 namespace Maporizer.MainPages.ViewModels.MenuBar;
 
 public partial class MenuBarViewModel
 {
     public ICommand ImportCommand { get; private set; } = null!;
-    public ICommand ImportDefaultCommand { get; private set; } = null!;
     private void InitImportInternal()
     {
-        ImportCommand = new Command(ImportCommandHandler);
-        ImportDefaultCommand = new Command<string>(ImportDefaultCommandHandler);
+        ImportCommand = new Command<string?>(ImportCommandHandler);
     }
-    private async void ImportCommandHandler()
+    private async void ImportCommandHandler(string? path = null)
     {
+        if (path is not null)
+        {
+            MessagingCenter.Send(this, "Import", path);
+            return;
+        }
         var fileType = new FilePickerFileType(
             new Dictionary<DevicePlatform, IEnumerable<string>>
             {
@@ -23,25 +25,15 @@ public partial class MenuBarViewModel
                 { DevicePlatform.macOS, new [] { ".mapo" } },
                 { DevicePlatform.MacCatalyst, new [] { ".mapo" } },
             });
-        var path = await FilePicker.Default.PickAsync(new PickOptions
+        var result = await FilePicker.Default.PickAsync(new PickOptions
         {
             PickerTitle = "Select a map to import",
             FileTypes = fileType,
         });
-        if (path is null)
+        if (result is null)
         {
             return;
         }
-        MessagingCenter.Send(this, "Import", path);
-    }
-    private async void ImportDefaultCommandHandler(string file)
-    {
-        var stream = await FileSystem.OpenAppPackageFileAsync(file);
-        if (stream is null)
-        {
-            return;
-        }
-        var reader = new StreamReader(stream);
-        MessagingCenter.Send(this, "Import", reader);
+        MessagingCenter.Send(this, "Import", result.FullPath);
     }
 }
