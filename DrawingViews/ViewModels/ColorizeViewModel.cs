@@ -29,6 +29,10 @@ public class ColorizeViewModel
     }
     private void OnColorize(MainPage sender, PromptResultModel model)
     {
+        if (((IGraphicsDrawable)view.GraphicsView.Drawable).Drawings.Count == 0)
+        {
+            return;
+        }
         if (model.Algorithm == "Brute-force")
         {
             Task.Run(() =>
