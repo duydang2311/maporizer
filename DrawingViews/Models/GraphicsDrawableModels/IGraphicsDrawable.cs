@@ -7,6 +7,7 @@ public interface IGraphicsDrawable : IDrawable
     IDrawableShape? HoveringDrawing { get; }
     void Erase(IDrawableShape drawing);
     void Draw(IDrawableShape drawing);
+    void Clear();
     void PauseHovering();
     void ResumeHovering();
 }
