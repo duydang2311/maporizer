@@ -13,7 +13,7 @@ public class ColorizeViewModel
     private readonly IGraphicsDrawable drawable;
     private readonly DrawingView view;
     private IColorizer? colorizer;
-    private Color[] colors;
+    private Color[] colors = null!;
     public ColorizeViewModel(DrawingView view)
     {
         this.view = view;
