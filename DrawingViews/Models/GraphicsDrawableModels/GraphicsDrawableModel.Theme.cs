@@ -17,6 +17,7 @@ public partial class GraphicsDrawableModel : IGraphicsDrawable
             {
                 i.StrokeColor = stroke;
             }
+            GraphicsView.Invalidate();
         }
     }
 }
