@@ -32,6 +32,7 @@ public partial class GraphicsDrawableModel : IGraphicsDrawable
         {
             if (!running)
             {
+                moveHover_drawing = null;
                 continue;
             }
             moveHover_resetEvent.WaitOne();
