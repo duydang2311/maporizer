@@ -16,10 +16,10 @@ public class RecursiveLargestFirstColorizer : Colorizer
     {
         graph = matrix;
         V = graph.GetLength(0);
-        var unprocessed = matrix.GetLength(0);
-        result = new int[unprocessed];
-        degree = new int[unprocessed];
-        NN = new int[unprocessed];
+        unprocessed = V;
+        result = new int[V];
+        degree = new int[V];
+        NN = new int[V];
         Initiate();
         Coloring();
         return result;
