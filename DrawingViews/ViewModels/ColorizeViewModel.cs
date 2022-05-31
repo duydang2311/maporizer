@@ -41,6 +41,14 @@ public class ColorizeViewModel
                 var result = colorizer.Colorize(DrawableHelper.MakeAdjacencyMatrix(drawable));
             });
         }
+        else if (model.Algorithm == "Greedy")
+        {
+            Task.Run(() =>
+            {
+                colorizer = new GreedyColorizer(OnIteration, model.Delay);
+                var result = colorizer.Colorize(DrawableHelper.MakeAdjacencyMatrix(drawable));
+            });
+        }
     }
     private void OnIteration(int[] result)
     {
