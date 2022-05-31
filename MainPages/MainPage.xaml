@@ -6,7 +6,7 @@
              xmlns:menubarvm="clr-namespace:Maporizer.MainPages.ViewModels.MenuBar"
              xmlns:drawingview="clr-namespace:Maporizer.DrawingViews"
              x:Class="Maporizer.MainPages.MainPage"
-             Title="maporizer"
+             Title="AI Group 1 - Van Tin Bao, Dang Quoc Duy, Nguyen Tien Dung - maporizer"
              x:Name="this">
     <ContentPage.BindingContext>
         <menubarvm:MenuBarViewModel />
