@@ -13,6 +13,7 @@ public class ColorizeViewModel
     private readonly IGraphicsDrawable drawable;
     private readonly DrawingView view;
     private IColorizer? colorizer;
+    private Color[] colors;
     public ColorizeViewModel(DrawingView view)
     {
         this.view = view;
@@ -33,40 +34,31 @@ public class ColorizeViewModel
         {
             return;
         }
-        if (model.Algorithm == "Brute-force")
+        colorizer =
+            (model.Algorithm == "Brute-force") ? new BruteForceColorizer(OnIteration, model.Delay) :
+            (model.Algorithm == "Greedy") ? new GreedyColorizer(OnIteration, model.Delay) :
+            (model.Algorithm == "Recursive Largest First") ? new RecursiveLargestFirstColorizer(OnIteration, model.Delay) :
+            null;
+        if (colorizer is null)
         {
-            Task.Run(() =>
-            {
-                colorizer = new BruteForceColorizer(OnIteration, model.Delay);
-                var result = colorizer.Colorize(DrawableHelper.MakeAdjacencyMatrix(drawable));
-            });
+            return;
         }
-        else if (model.Algorithm == "Greedy")
+        var matrix = DrawableHelper.MakeAdjacencyMatrix(drawable);
+        var length = matrix.GetLength(0);
+        colors = new Color[length];
+        var rand = new Random();
+        for (int i = 0; i != length; ++i)
         {
-            Task.Run(() =>
-            {
-                colorizer = new GreedyColorizer(OnIteration, model.Delay);
-                var result = colorizer.Colorize(DrawableHelper.MakeAdjacencyMatrix(drawable));
-            });
+            colors[i] = Color.FromRgb(rand.Next(255), rand.Next(255), rand.Next(255));
         }
+        Task.Run(() =>
+        {
+            var result = colorizer.Colorize(matrix);
+        });
     }
     private void OnIteration(int[] result)
     {
         var idx = 0;
-        var colors = new Color[]
-        {
-            Colors.Green,
-            Colors.Yellow,
-            Colors.Red,
-            Colors.Pink,
-            Colors.Purple,
-            Colors.Black,
-            Colors.Brown,
-            Colors.DarkCyan,
-            Colors.Cyan,
-            Colors.Tomato,
-            Colors.Orange
-        };
         view.Dispatcher.Dispatch(() =>
         {
             foreach (var i in drawable.Drawings)
