@@ -11,60 +11,21 @@ public class BruteForceColorizer : Colorizer
         {
             result[i] = -1;
         }
-        var colors = 5;
-        if (ColorizeUtil(matrix, 0, result))
-        {
-            var max = result.Max();
-            if (max < colors - 1)
-            {
-                var temp = colors - max - 1;
-                while (temp != 0)
-                {
-                    bool check = false;
-                    for (int i = 0, offset = length - 1; i != offset; ++i)
-                    {
-                        for (int j = i + 1; j != length; ++j)
-                        {
-                            if (result[i] == result[j])
-                            {
-                                if (State == ColorizerState.Stopped)
-                                {
-                                    break;
-                                }
-                                else while (State == ColorizerState.Paused);
-                                result[i] = result.Max() + 1;
-                                PostIterationInternal(result);
-                                check = true;
-                                break;
-                            }
-                        }
-                        if (check == true) break;
-                    }
-                    temp--;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i != length; ++i)
-            {
-                result[i] = -1;
-            }
-        }
+        ColorizeUtil(matrix, 0, result);
         Stop();
         return result;
     }
     private bool ColorizeUtil(bool[,] matrix, int i, int[] result)
     {
-        var colors = 5;
-        PostIterationInternal(result);
-        if (i == matrix.GetLength(0))
+        var length = matrix.GetLength(0);
+        if (i == length)
         {
             return IsSafe(matrix, result);
         }
-        for (int j = 0; j != colors; ++j)
+        for (int j = 0; j != length; ++j)
         {
             result[i] = j;
+            PostIterationInternal(result);
             if (State == ColorizerState.Stopped)
             {
                 break;
