@@ -20,7 +20,7 @@ public class ImportViewModel
         var color = ThemeHelper.GetThemeBasedValue((Color)App.Current!.Resources["Black"], (Color)App.Current!.Resources["White"]);
         Task.Run(async () =>
         {
-            using var reader = await FileSystem.AppPackageFileExistsAsync(path)
+            using var reader = !File.Exists(path)
                 ? new StreamReader(await FileSystem.OpenAppPackageFileAsync(path))
                 : new StreamReader(path)
             ;
