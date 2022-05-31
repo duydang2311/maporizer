@@ -34,6 +34,11 @@ public class GreedyColorizer : Colorizer
 
             result[u] = cr;
             PostIterationInternal(result);
+            if (State == ColorizerState.Stopped)
+            {
+                break;
+            }
+            else while (State == ColorizerState.Paused);
             for (int i = 0; i != length; ++i)
             {
                 if (matrix[u, i] && result[i] != -1)
